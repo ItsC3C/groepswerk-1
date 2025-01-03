@@ -25,8 +25,13 @@ $pokémons = getPokémons();
         <?php foreach ($pokémons as $pokémon): ?>
             <div class="pokémon">
                 <div class="pokémon_image"><img src="<?= $pokémon['pokémon_image']; ?>" alt=""></div>
-                <div class="pokémon_ID_name"><?= $pokémon['pokémon_id']; ?> | <?= $pokémon['pokémon_name']; ?></div>
-                <div class="pokémon_type1"><?= $pokémon['types.pokémon_id']; ?></div>
+                <div class="pokémon_ID_name">
+                    <a href="detail.php?id=<?= $pokémon['pokémon_id'] ?>">
+                        <?= $pokémon['pokémon_id']; ?> | <?= $pokémon['pokémon_name']; ?>
+                    </a>
+                </div>
+                <div class="pokémon_type1"><?= $pokémon['primary_type_name']; ?></div>
+                <div class="pokémon_type2"><?= $pokémon['secondary_type_name']; ?></div>
             </div>
         <?php endforeach; ?>
     </div>
