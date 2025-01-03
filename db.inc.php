@@ -1,0 +1,48 @@
+<?php
+
+// CONNECTIE MAKEN MET DE DB
+function connectToDB()
+{
+    // CONNECTIE CREDENTIALS
+    $db_host = '127.0.0.1';
+    $db_user = 'root';
+    $db_password = 'root';
+    $db_db = 'mydb';
+    $db_port = 8889;
+
+    try {
+        $db = new PDO('mysql:host=' . $db_host . '; port=' . $db_port . '; dbname=' . $db_db, $db_user, $db_password);
+    } catch (PDOException $e) {
+        echo "Error!: " . $e->getMessage() . "<br />";
+        die();
+    }
+    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
+    return $db;
+}
+
+// HAAL ALLE NEWS ITEMS OP UIT DE DB
+function getPokémons(): array
+{
+    $sql = "SELECT pokémon.*, pokémon_name FROM pokémon
+    LEFT JOIN types
+    ON pokémon_id = type_id";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// HAAL HET NWS ITEM UIT SPECIFIEKE ID
+function getPokémonById(int $id): array|bool
+{
+    $sql = "SELECT pokémon.*, pokémon_name FROM pokémon
+    LEFT JOIN types
+    ON pokémon_id = type_id
+    WHERE pokémon_id = :id;";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute([
+        ":id" => $id
+    ]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
