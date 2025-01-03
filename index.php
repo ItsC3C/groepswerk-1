@@ -16,35 +16,19 @@ $pokémons = getPokémons();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEBSITE HOMEPAGE</title>
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="style.css" />
     <script type="module" src="./dist/<?= $jsPath ?>"></script>
 </head>
 
 <body>
     <div class="table">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Image</th>
-                </tr>
-            </thead>
-            <tbody>
-
-                <?php foreach ($pokémons as $pokémon): ?>
-
-                    <tr>
-                        <td><?= $pokémon['pokémon_id']; ?></td>
-                        <td><?= $pokémon['pokémon_name']; ?></td>
-                        <td><img src="<?= $pokémon['pokémon_image']; ?>" alt=""></td>
-                    </tr>
-
-                <?php endforeach; ?>
-
-
-            </tbody>
-        </table>
+        <?php foreach ($pokémons as $pokémon): ?>
+            <div class="pokémon">
+                <div class="pokémon_image"><img src="<?= $pokémon['pokémon_image']; ?>" alt=""></div>
+                <div class="pokémon_ID_name"><?= $pokémon['pokémon_id']; ?> | <?= $pokémon['pokémon_name']; ?></div>
+                <div class="pokémon_type1"><?= $pokémon['types.pokémon_id']; ?></div>
+            </div>
+        <?php endforeach; ?>
     </div>
 </body>
 
