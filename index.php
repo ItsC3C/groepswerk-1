@@ -32,29 +32,32 @@ $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage)
 <body>
     <div class="table">
         <?php foreach ($pokémons as $pokémon): ?>
-            <div class="pokémon" <?php setBackgroundColor($pokémon['primary_type_name']) ?>>
-                <div class="pokémon_image"><img src="<?= $pokémon['pokémon_image']; ?>" alt="<?= $pokémon['pokémon_name']; ?>"></div>
-                <div class="pokémon_ID_name" <?php setColor($pokémon['primary_type_name']) ?>><?= $pokémon['pokémon_id']; ?> | <?= $pokémon['pokémon_name']; ?></div>
+            <a class="pokémon_ID_name" href="detail.php?id=<?= $pokémon['pokémon_id'] ?>">
+                <div class="pokémon" <?php setBackgroundColor($pokémon['primary_type_name']) ?>>
+                    <div class="pokémon_image"><img src="<?= $pokémon['pokémon_image']; ?>" alt="<?= $pokémon['pokémon_name']; ?>">
+                    </div>
+                    <div class="pokémon_ID_name" <?php setColor($pokémon['primary_type_name']) ?>> <?= $pokémon['pokémon_id']; ?> | <?= $pokémon['pokémon_name']; ?>
+                    </div>
+                    <div class="pokémon_type1">
+                        <?php
+                        $primaryTypeImage = getTypeImage($pokémon['primary_type_name']);
+                        if ($primaryTypeImage) {
+                            echo '<img class="type" src="' . $primaryTypeImage . '" alt="' . $pokémon['primary_type_name'] . '">';
+                        }
+                        ?>
+                    </div>
 
-                <div class="pokémon_type1">
-                    <?php
-                    $primaryTypeImage = getTypeImage($pokémon['primary_type_name']);
-                    if ($primaryTypeImage) {
-                        echo '<img class="type" src="' . $primaryTypeImage . '" alt="' . $pokémon['primary_type_name'] . '">';
-                    }
-                    ?>
+                    <div class="pokémon_type2">
+                        <?php
+                        $secondaryTypeImage = getTypeImage($pokémon['secondary_type_name']);
+                        if ($secondaryTypeImage) {
+                            echo '<img class="type" src="' . $secondaryTypeImage . '" alt="' . $pokémon['secondary_type_name'] . '">';
+                        }
+                        ?>
+                    </div>
+
                 </div>
-
-                <div class="pokémon_type2">
-                    <?php
-                    $secondaryTypeImage = getTypeImage($pokémon['secondary_type_name']);
-                    if ($secondaryTypeImage) {
-                        echo '<img class="type" src="' . $secondaryTypeImage . '" alt="' . $pokémon['secondary_type_name'] . '">';
-                    }
-                    ?>
-                </div>
-
-            </div>
+            </a>
         <?php endforeach; ?>
     </div>
 
