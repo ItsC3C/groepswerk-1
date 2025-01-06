@@ -16,65 +16,75 @@ body {
 }
 
 .container {
-  max-width: 80%;
-  margin: 40px auto;
-  padding: 40px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 80%;
+  margin: 2% 8%;
   display: grid;
+  padding: 2% 2%;
   grid:
-    "pokémon_image pokémon_image pokémon_name pokémon_name" 10% "pokémon_image pokémon_image pokémon_info pokémon_info" 30% "pokémon_type1 pokémon_type2 pokémon_stats pokémon_stats" 10% "pokémon_abilities pokémon_abilities pokémon_abilities pokémon_abilities" 20% / 1fr 1fr 1fr 1fr;
+    "pokémon_image pokémon_image pokémon_name pokémon_name" 20% "pokémon_image pokémon_image pokémon_info pokémon_info" 20% "pokémon_abilities pokémon_abilities pokémon_abilities pokémon_stats" 10% "pokémon_abilities_desc pokémon_abilities_desc pokémon_abilities_desc pokémon_stats" 10%/ 20% 20% 20% 40%;
   gap: 8px;
+  position: relative;
+  aspect-ratio: 1/1;
+
 
   .pokémon_image {
     grid-area: pokémon_image;
-    grid-area: pokémon_image;
-    border-radius: 5px;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
 
-    img {
-      display: block;
-      padding: 15px;
-      height: 250px;
-      filter: drop-shadow(5px 5px 6px black);
-    }
+  .pokémon_self {
+    top: 6rem;
+    z-index: 2;
+    scale: 220%;
+    filter: drop-shadow(5px 3px 0px black);
+  }
+
+  .pokémon_background {
+    top: 0;
+    left: 0;
+    z-index: 1;
+    border: 5px solid #85A947;
+    border-radius: 5px;
   }
 
   .pokémon_name {
+    font-size: 80px;
+    padding-left: 10px;
+    margin: 0;
     grid-area: pokémon_name;
   }
 
   .pokémon_info {
+    font-size: 35px;
+    padding-left: 10px;
     grid-area: pokémon_info;
-  }
+    border: black solid 2px;
 
-  .pokémon_type1 {
-    grid-area: pokémon_type1;
-  }
+    p {
+      line-height: 5px;
 
-  .pokémon_type2 {
-    grid-area: pokémon_type2;
+
+      .type {
+        scale: 200%;
+        padding-left: 25px;
+        transform: translateY(-2px);
+      }
+
+      .type2 {
+        padding-left: 35px;
+      }
+    }
   }
 
   .pokémon_stats {
+    font-size: 25px;
+    line-height: 35px;
     grid-area: pokémon_stats;
-  }
-
-  .pokémon_abilities {
-    grid-area: pokémon_abilities;
-  }
-
-  p {
-    margin-bottom: 20px;
-    font-weight: 400;
-  }
-
-  .pokémon_stats {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 
     table {
       width: 100%;
@@ -82,9 +92,75 @@ body {
 
       tr {
 
-        td {}
+        .pokémon_results {
+          text-decoration: underline;
+          font-weight: 700;
+        }
+      }
 
-        .pokémon_stats_results {}
+    }
+  }
+
+  .pokémon_abilities {
+    font-size: 25px;
+    line-height: 35px;
+    grid-area: pokémon_abilities;
+
+    table {
+      width: 100%;
+      border: black solid 2px;
+
+      tr {
+        display: flex;
+        justify-content: space-between;
+
+        td {
+          margin: 5px 0;
+        }
+
+        .pokémon_results {
+          padding: 0 3px;
+          font-weight: 700;
+          margin-right: 10px;
+          align-items: start;
+          text-decoration: underline;
+
+        }
+      }
+
+      .noThirdAbility {
+        display: none;
+      }
+
+    }
+  }
+
+  .pokémon_abilities_desc {
+    display: none;
+    font-size: 25px;
+    line-height: 35px;
+    grid-area: pokémon_abilities_desc;
+
+
+    table {
+      position: relative;
+      width: 100%;
+
+      tr {
+        position: absolute;
+        border: black solid 2px;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: start;
+
+        td:nth-child(1) {
+          text-align: right;
+        }
+      }
+
+      .noThirdAbility {
+        display: none;
       }
 
     }

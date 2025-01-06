@@ -110,7 +110,7 @@ function getTypeImage($type)
 function setBackgroundColor($type)
 {
     switch ($type) {
-        case 'Dark  ':
+        case 'Dark':
             echo "style='background-color:#181C14;border:solid#3C3D37'";
             break;
         case 'Electric':
@@ -174,7 +174,7 @@ function setBackgroundColor($type)
 function setColor($type)
 {
     switch ($type) {
-        case 'Dark  ':
+        case 'Dark':
             echo "style='color:#3C3D37'";
             break;
         case 'Electric':
@@ -234,6 +234,70 @@ function setColor($type)
             break;
     }
 }
+
+function setBackgroundImg($type)
+{
+    switch ($type) {
+        case 'Dark':
+            echo "/pictures/dark-landscape.jpg";
+            break;
+        case 'Electric':
+            echo "/pictures/grass-landscape.jpeg";
+            break;
+        case 'Fairy':
+            echo "/pictures/fairy-landscape.jpg";
+            break;
+        case 'Fighting':
+            echo "/pictures/grass-landscape.jpeg";
+            break;
+        case 'Ground':
+            echo "/pictures/ground-landscape.webp";
+            break;
+        case 'Ice':
+            echo "/pictures/ice-landscape.jpg";
+            break;
+        case 'Normal':
+            echo "/pictures/grass-landscape.jpeg";
+            break;
+        case 'Poison':
+            echo "/pictures/poison-landscape.jpeg";
+            break;
+        case 'Psychic':
+            echo "/pictures/psychic-landscape.jpg";
+            break;
+        case 'Rock':
+            echo "/pictures/rock-landscape.jepg";
+            break;
+        case 'Steel':
+            echo "/pictures/steel-landscape.png";
+            break;
+        case 'Water':
+            echo "/pictures/water-landscape.jpg";
+            break;
+        case 'Grass':
+            echo "/pictures/grass-landscape.jpeg";
+            break;
+        case 'Fire':
+            echo "/pictures/fire-landscape.avif";
+            break;
+        case 'Bug':
+            echo "/pictures/bug-landscape.jpg";
+            break;
+        case 'Dragon':
+            echo "/pictures/flying-landscape.jpg";
+            break;
+        case 'Flying':
+            echo "/pictures/flying-landscape.jpg";
+            break;
+        case 'Ghost':
+            echo "/pictures/ghost-landscape.jpg";
+            break;
+        default:
+            echo "style='color:black'";
+            break;
+    }
+}
+
 
 // HAAL HET NWS ITEM UIT SPECIFIEKE ID
 function getPokémonById(int $id): array|bool

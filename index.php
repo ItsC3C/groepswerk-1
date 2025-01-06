@@ -10,7 +10,7 @@ $pokémons = getPokémons();
 
 // pagination
 $page = isset($_GET['page-nr']) ? (int)$_GET['page-nr'] : 1;
-$itemsPerPage = 20;
+$itemsPerPage = 21;
 $totalPokémon = count($pokémons);
 $pages = ceil($totalPokémon / $itemsPerPage);
 $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage);
