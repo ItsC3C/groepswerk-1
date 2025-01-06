@@ -6,7 +6,10 @@ require('db.inc.php');
 // print_r(getPokémons());
 // print '</pre>';
 
-$pokémons = getPokémons();
+// filters
+$selectedAlphabet = $_GET['alphabet'] ?? null;
+$selectedType = $_GET['type'] ?? null;
+$pokémons = getPokémons($selectedAlphabet, $selectedType);
 
 // pagination
 $page = isset($_GET['page-nr']) ? (int)$_GET['page-nr'] : 1;
@@ -28,6 +31,30 @@ $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage)
 </head>
 
 <body>
+    <h1><a href="./">PokéHub</a></h1>
+    <div class="filter-container">
+        <h3>Filter by Alphabet:</h3>
+        <div class="alphabets">
+            <?php
+            $alphabets = range('A', 'Z');
+            foreach ($alphabets as $alphabet) {
+                echo '<a href="?alphabet=' . $alphabet . '">' . $alphabet . '</a> | ';
+            }
+            ?>
+        </div>
+        <h3>Filter by Type:</h3>
+        <div class="types">
+            <select name="type" onchange="window.location.href=this.value">
+                <option value="">Select a type</option>
+                <?php
+                $types = array('Normal', 'Fire', 'Water', 'Grass', 'Ice', 'Electric', 'Psychic', 'Fighting', 'Poison', 'Ground', 'Flying', 'Bug', 'Rock', 'Ghost', 'Steel', 'Dragon', 'Dark', 'Fairy');
+                foreach ($types as $type) {
+                    echo '<option value="?type=' . $type . '">' . $type . '</option>';
+                }
+                ?>
+            </select>
+        </div>
+    </div>
     <div class="table">
         <?php foreach ($pokémons as $pokémon): ?>
             <a class="pokémon_ID_name" href="detail.php?id=<?= $pokémon['pokémon_id'] ?>">

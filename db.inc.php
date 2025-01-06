@@ -21,7 +21,7 @@ function connectToDB()
 }
 
 // HAAL ALLE NEWS ITEMS OP UIT DE DB
-function getPokémons(): array
+function getPokémons($filter = null, $type = null): array
 {
     $sql = "SELECT 
                 pokémon.pokémon_id,
@@ -40,6 +40,19 @@ function getPokémons(): array
             LEFT JOIN 
                 types ON pokémon.pokémon_id = types.type_id";
 
+    // filter alfabetisch
+    if ($filter) {
+        $sql .= " WHERE pokémon.pokémon_name LIKE '$filter%'";
+    }
+    // filter types
+    if ($type) {
+        $sql .= " WHERE primary_type.type_name = '$type' OR secondary_type.type_name = '$type'";
+    }
+    // filter combineren
+    if ($filter && $type) {
+        $sql = str_replace("WHERE", "WHERE", $sql);
+        $sql = str_replace("WHERE", "AND", $sql, 2);
+    }
     $stmt = connectToDB()->prepare($sql);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

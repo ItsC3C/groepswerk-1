@@ -1,118 +1,122 @@
 @import url("css/reset.css");
 @import url("css/icons.css");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Inter:opsz,wght@14..32,100..900&family=Oswald:wght@200..700&family=Roboto:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Inter:opsz,wght@14..32,100..900&family=Oswald:wght@200..700&family=Roboto:wght@400;700&display=swap");
 
 * {
-    box-sizing: border-box;
-    font-family: "Hanken Grotesk";
+  box-sizing: border-box;
+  font-family: "Hanken Grotesk";
 }
 
 body {
-    min-width: 100%;
-    padding-left: 100px;
-    padding-right: 100px;
-    background-image: url("https://static.vecteezy.com/system/resources/previews/024/649/105/large_2x/pattern-pokeball-red-and-white-ball-of-the-popular-cartoon-90s-pixel-art-free-vector.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+  min-width: 100%;
+  padding-left: 100px;
+  padding-right: 100px;
+  background-image: url("https://static.vecteezy.com/system/resources/previews/024/649/105/large_2x/pattern-pokeball-red-and-white-ball-of-the-popular-cartoon-90s-pixel-art-free-vector.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  h1 {
+    text-align: center;
+    font-weight: 900;
+    font-size: 400%;
+    padding: 30px;
+    text-decoration: none;
+  }
+  .table {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-column-gap: 25px;
+    grid-row-gap: 25px;
 
-    .table {
-        width: 100%;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        grid-column-gap: 25px;
-        grid-row-gap: 25px;
+    .pokémon {
+      border: 5px solid black;
+      border-radius: 5px;
+      height: 210px;
+      padding: 10px;
+      display: grid;
+      grid: "pokémon_image pokémon_ID_name" 10% "pokémon_image pokémon_type1" 1fr "pokémon_image pokémon_type2" 1fr / 1fr 1fr;
+      gap: 15px;
 
-        .pokémon {
-            border: 5px solid black;
-            border-radius: 5px;
-            height: 210px;
-            padding: 10px;
-            display: grid;
-            grid:
-                "pokémon_image pokémon_ID_name" 10% "pokémon_image pokémon_type1" 1fr "pokémon_image pokémon_type2" 1fr / 1fr 1fr;
-            gap: 15px;
+      .pokémon_image {
+        grid-area: pokémon_image;
+        border-radius: 5px;
+        height: 180px;
 
-            .pokémon_image {
-                grid-area: pokémon_image;
-                border-radius: 5px;
-                height: 180px;
-
-                img {
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                    padding: 15px;
-                    height: 180px;
-                    filter: drop-shadow(5px 5px 6px black);
-                }
-            }
-
-            .pokémon_ID_name {
-                margin-top: 10%;
-                grid-area: pokémon_ID_name;
-                padding-top: 5px;
-                font-family: "Hanken Grotesk";
-                font-weight: 900;
-                font-size: 110%;
-            }
-
-            .pokémon_type1 {
-                grid-area: pokémon_type1;
-
-                .type {
-                    padding-top: 20px;
-                    scale: 200%;
-                    display: block;
-                    padding-left: 10px;
-                }
-            }
-
-            .pokémon_type2 {
-                grid-area: pokémon_type2;
-
-                .type {
-                    scale: 200%;
-                    display: block;
-                    padding-left: 10px;
-                }
-            }
+        img {
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          padding: 15px;
+          height: 180px;
+          filter: drop-shadow(5px 5px 6px black);
         }
-    }
+      }
 
-    .pagination {
+      .pokémon_ID_name {
+        margin-top: 10%;
+        grid-area: pokémon_ID_name;
+        padding-top: 5px;
+        font-family: "Hanken Grotesk";
+        font-weight: 900;
+        font-size: 110%;
+      }
+
+      .pokémon_type1 {
+        grid-area: pokémon_type1;
+
+        .type {
+          padding-top: 20px;
+          scale: 200%;
+          display: block;
+          padding-left: 10px;
+        }
+      }
+
+      .pokémon_type2 {
+        grid-area: pokémon_type2;
+
+        .type {
+          scale: 200%;
+          display: block;
+          padding-left: 10px;
+        }
+      }
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    padding: 10px 0;
+
+    .page-link {
+      a {
+        font-family: "Hanken Grotesk";
+        text-decoration: none;
+        color: white;
+        background-color: #b3b3b3;
+        border: solid white 3px;
+        width: 100px;
+        height: 30px;
+        border-radius: 5px;
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 18px;
-        padding: 10px 0;
 
-        .page-link {
-
-            a {
-                font-family: "Hanken Grotesk";
-                text-decoration: none;
-                color: white;
-                background-color: #b3b3b3;
-                border: solid white 3px;
-                width: 100px;
-                height: 30px;
-                border-radius: 5px;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-
-                &:hover {
-                    transition: all 500ms;
-                    color: #b3b3b3;
-                    background-color: white;
-                    border: solid #b3b3b3 3px;
-                }
-            }
-
-            .disabled {
-                display: none;
-            }
+        &:hover {
+          transition: all 500ms;
+          color: #b3b3b3;
+          background-color: white;
+          border: solid #b3b3b3 3px;
         }
+      }
+
+      .disabled {
+        display: none;
+      }
     }
+  }
 }
