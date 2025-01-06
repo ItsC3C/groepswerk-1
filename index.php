@@ -8,13 +8,11 @@ require('db.inc.php');
 
 $pokémons = getPokémons();
 
-// Add these lines at the beginning of your PHP code
+// pagination
 $page = isset($_GET['page-nr']) ? (int)$_GET['page-nr'] : 1;
-$itemsPerPage = 20; // Adjust this number based on how many Pokémon you want per page
+$itemsPerPage = 20;
 $totalPokémon = count($pokémons);
 $pages = ceil($totalPokémon / $itemsPerPage);
-
-// Slice the $pokémons array to get only the items for the current page
 $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage);
 ?>
 <!DOCTYPE html>
