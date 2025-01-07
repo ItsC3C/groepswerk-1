@@ -9,7 +9,12 @@ export default {
     watch: true,
     //onderstaande stelt de js file in als entrypoint voor vite ipv. index.html
     rollupOptions: {
-      input: ["/js/index.js", "/admin/js/index.js"],
+      input: [
+        "/js/link_index.js",
+        "/js/link_detail.js",
+        "/admin/js/link_index.js",
+        "/admin/js/link_login.js",
+      ],
     },
   },
 };

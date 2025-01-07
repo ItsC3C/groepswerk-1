@@ -1,0 +1,205 @@
+@import url("./reset.css");
+@import url("./icons.css");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Inter:opsz,wght@14..32,100..900&family=Oswald:wght@200..700&family=Roboto:wght@400;700&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Hanken Grotesk";
+  min-width: 100%;
+  background-image: url("https://static.vecteezy.com/system/resources/previews/024/649/105/large_2x/pattern-pokeball-red-and-white-ball-of-the-popular-cartoon-90s-pixel-art-free-vector.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+.container {
+  height: 80%;
+  margin: 2% 8%;
+  display: grid;
+  padding: 2% 2%;
+  grid:
+    "pokémon_image pokémon_image pokémon_name pokémon_name" 20% "pokémon_image pokémon_image pokémon_info pokémon_info" 20% "pokémon_abilities pokémon_abilities pokémon_abilities pokémon_stats" 10% "pokémon_abilities_desc pokémon_abilities_desc pokémon_abilities_desc pokémon_stats" 10%/ 20% 20% 20% 40%;
+  gap: 12px;
+  position: relative;
+  aspect-ratio: 1/1;
+
+
+  .pokémon_image {
+    grid-area: pokémon_image;
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+
+  .pokémon_self {
+    top: 10rem;
+    z-index: 2;
+    scale: 220%;
+    filter: drop-shadow(5px 3px 0px black);
+  }
+
+  .pokémon_background {
+    top: 0;
+    left: 0;
+    z-index: 1;
+    border: 5px solid #85A947;
+    border-radius: 5px;
+  }
+
+  .pokémon_name {
+    font-size: 80px;
+    padding-left: 10px;
+    margin: 0;
+    grid-area: pokémon_name;
+  }
+
+  .pokémon_info {
+    font-size: 35px;
+    padding-left: 10px;
+    grid-area: pokémon_info;
+    border: black solid 2px;
+    background-color: red;
+
+    p {
+      line-height: 40px;
+
+      .type {
+        scale: 200%;
+        padding-left: 25px;
+        transform: translateY(-2px);
+      }
+
+      .type2 {
+        padding-left: 35px;
+      }
+    }
+  }
+
+  .pokémon_stats {
+    font-size: 25px;
+    line-height: 35px;
+    grid-area: pokémon_stats;
+
+    table {
+      width: 100%;
+      border: black solid 2px;
+
+      tr {
+
+        .pokémon_results {
+          text-decoration: underline;
+          font-weight: 700;
+        }
+      }
+
+    }
+  }
+
+  .pokémon_abilities {
+    font-size: 25px;
+    line-height: 35px;
+    grid-area: pokémon_abilities;
+
+    table {
+      width: 100%;
+      border: black solid 2px;
+
+      tr {
+        display: flex;
+        justify-content: space-between;
+
+        td {
+          margin: 5px 0;
+        }
+
+        .pokémon_results {
+          padding: 0 3px;
+          font-weight: 700;
+          margin-right: 10px;
+          align-items: start;
+          text-decoration: underline;
+
+        }
+      }
+
+      .noThirdAbility {
+        display: none;
+      }
+
+    }
+  }
+
+  .pokémon_abilities_desc {
+    display: none;
+    font-size: 25px;
+    line-height: 35px;
+    grid-area: pokémon_abilities_desc;
+
+
+    table {
+      position: relative;
+      width: 100%;
+
+      tr {
+        position: absolute;
+        border: black solid 2px;
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        align-items: start;
+
+        td:nth-child(1) {
+          text-align: right;
+        }
+      }
+
+      .noThirdAbility {
+        display: none;
+      }
+
+    }
+  }
+
+  .button-container {
+    padding-top: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 20px;
+
+    .button {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 10px 20px;
+      background-color: #bdbdbd;
+      color: #333333;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+
+      a {
+        text-decoration: none;
+
+        &:visited {
+          color: #333333;
+        }
+      }
+
+      &:hover {
+        background-color: #cacaca;
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+}

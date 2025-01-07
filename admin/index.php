@@ -10,8 +10,8 @@ include_once "../includes/css_js.inc.php";
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADMIN HOMEPAGE</title>
-    <link rel="stylesheet" href="../dist/<?= $cssPath ?>" />
-    <script type="module" src="../dist/<?= $jsPath ?>"></script>
+    <link rel="stylesheet" href="<?= getCSS("index") ?>" />
+    <script type="module" src="<?= getJS("index") ?>"></script>
 </head>
 
 <body>
