@@ -5,10 +5,10 @@
 
 * {
   box-sizing: border-box;
-  font-family: "Hanken Grotesk";
 }
 
 body {
+  font-family: "Hanken Grotesk";
   min-width: 100%;
   background-image: url("https://static.vecteezy.com/system/resources/previews/024/649/105/large_2x/pattern-pokeball-red-and-white-ball-of-the-popular-cartoon-90s-pixel-art-free-vector.jpg");
   background-repeat: no-repeat;
@@ -39,7 +39,7 @@ body {
   }
 
   .pokémon_self {
-    top: 6rem;
+    top: 10rem;
     z-index: 2;
     scale: 220%;
     filter: drop-shadow(5px 3px 0px black);
@@ -65,10 +65,10 @@ body {
     padding-left: 10px;
     grid-area: pokémon_info;
     border: black solid 2px;
+    background-color: red;
 
     p {
-      line-height: 5px;
-
+      line-height: 40px;
 
       .type {
         scale: 200%;

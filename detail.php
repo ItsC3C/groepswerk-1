@@ -1,5 +1,6 @@
 <?php
 require('db.inc.php');
+require('includes/css_js.inc.php');
 
 $id = $_GET['id'];
 // $pokéId = getPokémonById($id);
@@ -13,9 +14,8 @@ $details = getDetailsPokémonById($id);
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEBSITE HOMEPAGE</title>
-    <link rel="stylesheet" href="style_detail.css" />
-    <script type="module" src="./dist/<?= $jsPath ?>"></script>
-    <script src="/detail.js" defer></script>
+    <link rel="stylesheet" href="<?= getCSS("detail"); ?>" />
+    <script type="module" src="<?= getJS("detail"); ?>"></script>
 </head>
 
 <body>

@@ -23,8 +23,8 @@ $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage)
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WEBSITE HOMEPAGE</title>
-    <link rel="stylesheet" href="style.css" />
-    <script type="module" src="./dist/<?= $jsPath ?>"></script>
+    <link rel="stylesheet" href="<?= getCSS("index"); ?>" />
+    <script type="module" src="<?= getJS("index") ?>"></script>
 </head>
 
 <body>
