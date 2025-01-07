@@ -86,22 +86,24 @@ $details = getDetailsPokémonById($id);
             </table>
         </div>
         <div class="pokémon_abilities_desc" <?php setColor($details['primary_type']) ?>>
-            <table>
-                <tr id="desc-1">
-                    <td><?= $details['ability_1'] ?></td>
-                    <td><?= $details['ability_1_description'] ?></td>
-                </tr>
-                <tr id="desc-2">
-                    <td><?= $details['ability_2'] ?></td>
-                    <td><?= $details['ability_2_description'] ?></td>
-                </tr id="desc-3">
-                <tr <?php if ($details['ability_3'] == "") {
-                        echo "class='noThirdAbility'";
-                    } ?>>
-                    <td><?= $details['ability_2'] ?></td>
-                    <td><?= $details['ability_3_description'] ?></td>
-                </tr>
-            </table>
+            <div>
+                <div class="desc-1" id="desc-1">
+                    <div><?= $details['ability_1'] ?></div>
+                    <div><?= $details['ability_1_description'] ?></div>
+                </div>
+                <div class="desc-2" id="desc-2">
+                    <div><?= $details['ability_2'] ?></div>
+                    <div><?= $details['ability_2_description'] ?></div>
+                </div>
+                <div class="desc-3" id="desc-3">
+                    <div <?php if ($details['ability_3'] == "") {
+                                echo "class='noThirdAbility'";
+                            } ?>><?= $details['ability_3'] ?></div>
+                    <div <?php if ($details['ability_3'] == "") {
+                                echo "class='noThirdAbility'";
+                            } ?>><?= $details['ability_3_description'] ?></div>
+                </div>
+            </div>
         </div>
         <div class="button-container">
             <?php if ($details['pokémon_id'] > 1): ?>

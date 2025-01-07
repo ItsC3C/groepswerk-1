@@ -137,27 +137,27 @@ body {
   }
 
   .pokémon_abilities_desc {
-    display: none;
     font-size: 25px;
     line-height: 35px;
     grid-area: pokémon_abilities_desc;
 
 
-    table {
-      position: relative;
+    div {
       width: 100%;
+      display: grid;
+      justify-content: end;
+      position: relative;
 
-      tr {
-        position: absolute;
-        border: black solid 2px;
-        display: flex;
+      .desc-1,
+      .desc-2,
+      .desc-3 {
+        display: none;
         flex-direction: row-reverse;
         justify-content: space-between;
         align-items: start;
-
-        td:nth-child(1) {
-          text-align: right;
-        }
+        position: absolute;
+        text-align: right;
+        border: 3px solid black;
       }
 
       .noThirdAbility {
