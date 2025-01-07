@@ -1,0 +1,20 @@
+# Options +FollowSymLinks -MultiViews
+
+# RewriteEngine On
+
+
+# # RewriteBase for your subdirectory
+# RewriteBase /
+
+# # Redirect root requests to the subdirectory
+# RewriteRule ^$GROEPSWERK-1/ [L]
+
+# # Ensure that subdirectory files and folders are accessible
+# RewriteCond %{REQUEST_FILENAME} !-f
+# RewriteCond %{REQUEST_FILENAME} !-d
+# RewriteRule ^ GROEPSWERK-1/$0 [L]
+
+
+# RewriteCond %{REQUEST_FILENAME} !-f
+
+# RewriteRule ^detail/(.*)$ detail.php?id=$1 [L,QSA,NC]
