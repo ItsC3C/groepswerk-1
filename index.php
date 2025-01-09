@@ -30,7 +30,7 @@ $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage)
 <body>
     <div class="table">
         <?php foreach ($pokémons as $pokémon): ?>
-            <a class="pokémon_ID_name" href="detail.php?id=<?= $pokémon['pokémon_id'] ?>">
+            <a class="pokémon_card" href="detail.php?id=<?= $pokémon['pokémon_id'] ?>">
                 <div class="pokémon" <?php setBackgroundColor($pokémon['primary_type_name']) ?>>
                     <div class="pokémon_image"><img src="<?= $pokémon['pokémon_image']; ?>" alt="<?= $pokémon['pokémon_name']; ?>">
                     </div>

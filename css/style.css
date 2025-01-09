@@ -18,19 +18,30 @@ body {
 
     .table {
         width: 100%;
+        height: auto;
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
         grid-column-gap: 25px;
         grid-row-gap: 25px;
 
+        .pokémon_card {
+            border-radius: 10px;
+            transition: transform 500ms ease-in, border 500ms ease-in, box-shadow 500ms ease-in;
+
+            &:hover,
+            &:focus {
+                transform: scale(1.05);
+                box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+                cursor: pointer;
+            }
+        }
+
         .pokémon {
-            border: 5px solid black;
             border-radius: 5px;
-            height: 210px;
+            height: auto;
             padding: 10px;
             display: grid;
-            grid:
-                "pokémon_image pokémon_ID_name" 10% "pokémon_image pokémon_type1" 1fr "pokémon_image pokémon_type2" 1fr / 1fr 1fr;
+            grid: "pokémon_image pokémon_ID_name" 10% "pokémon_image pokémon_type1" 1fr "pokémon_image pokémon_type2" 1fr / 1fr 1fr;
             gap: 15px;
 
             .pokémon_image {
@@ -55,6 +66,7 @@ body {
                 font-family: "Hanken Grotesk";
                 font-weight: 900;
                 font-size: 110%;
+                text-decoration: underline;
             }
 
             .pokémon_type1 {

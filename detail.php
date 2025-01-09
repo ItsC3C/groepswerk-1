@@ -24,7 +24,7 @@ $details = getDetailsPokémonById($id);
             <a href="<?= $details['pokémon_image'] ?>" data-lightbox="image-1"><img src='<?= $details['pokémon_image'] ?>' alt=''></a>
         </div>
         <div>
-            <img class="pokémon_image pokémon_background" src="<?= setBackgroundImg($details['primary_type']) ?>" alt="grass-landscape">
+            <img class="pokémon_image pokémon_background" src="<?= setBackgroundImg($details['primary_type']) ?>" alt="landscape">
         </div>
         <h1 class="pokémon_name" <?php setColor($details['primary_type']) ?>><?= $details['pokémon_id'] ?> | <?= $details['pokémon_name'] ?></h1>
         <div class="pokémon_info" <?php setColor($details['primary_type']) ?>>
@@ -68,53 +68,32 @@ $details = getDetailsPokémonById($id);
             </table>
         </div>
         <div class="pokémon_abilities" <?php setColor($details['primary_type']) ?>>
-            <table>
-                <tr>
-                    <td>Ability 1</td>
-                    <td class="pokémon_ability_results" data-id="1"><?= $details['ability_1'] ?></td>
-                </tr>
-                <tr>
-                    <td>Ability 2</td>
-                    <td class="pokémon_ability_results" data-id="2"><?= $details['ability_2'] ?></td>
-                </tr>
-                <tr <?php if ($details['ability_3'] == "") {
-                        echo "class='noThirdAbility'";
-                    } ?>>
-                    <td>Ability 3 :</td>
-                    <td class="pokémon_ability_results" data-id="3"><?= $details['ability_3'] ?></td>
-                </tr>
-            </table>
-        </div>
-        <div class="pokémon_abilities_desc" <?php setColor($details['primary_type']) ?>>
-            <div>
-                <div class="desc-1" id="desc-1">
-                    <div><?= $details['ability_1'] ?></div>
-                    <div><?= $details['ability_1_description'] ?></div>
+            <div class="pokémon_abilty_table">
+                <div class="abillity">
+                    <div class="ability_title">- Ability 1: <?= $details['ability_1'] ?>.</div>
+                    <div class="ability_description"><?= $details['ability_1_description'] ?></div>
                 </div>
-                <div class="desc-2" id="desc-2">
-                    <div><?= $details['ability_2'] ?></div>
-                    <div><?= $details['ability_2_description'] ?></div>
+                <div class="abillity">
+                    <div class="ability_title">- Ability 2: <?= $details['ability_2'] ?>.</div>
+                    <div class="ability_description"><?= $details['ability_2_description'] ?></div>
                 </div>
-                <div class="desc-3" id="desc-3">
-                    <div <?php if ($details['ability_3'] == "") {
-                                echo "class='noThirdAbility'";
-                            } ?>><?= $details['ability_3'] ?></div>
-                    <div <?php if ($details['ability_3'] == "") {
-                                echo "class='noThirdAbility'";
-                            } ?>><?= $details['ability_3_description'] ?></div>
+                <div class="abillity" <?php if ($details['ability_3'] == "") {
+                                            echo 'style="display:none;"';
+                                        } ?>>
+                    <div class="ability_title">- Ability 3: <?= $details['ability_3'] ?>.</div>
+                    <div class="ability_description"><?= $details['ability_3_description'] ?>.</div>
                 </div>
             </div>
-        </div>
-        <div class="button-container">
-            <?php if ($details['pokémon_id'] > 1): ?>
-                <button class="button"><a href="detail.php?id=<?= $details['pokémon_id'] - 1 ?>">Previous</a></button>
-            <?php endif; ?>
-            <?php if ($details['pokémon_id'] < 151): ?>
-                <button class="button"><a href="detail.php?id=<?= $details['pokémon_id'] + 1 ?>">Next</a></button>
-            <?php endif; ?>
+            <div class="button-container">
+                <?php if ($details['pokémon_id'] > 1): ?>
+                    <button class="button"><a href="detail.php?id=<?= $details['pokémon_id'] - 1 ?>">Previous</a></button>
+                <?php endif; ?>
+                <?php if ($details['pokémon_id'] < 151): ?>
+                    <button class="button"><a href="detail.php?id=<?= $details['pokémon_id'] + 1 ?>">Next</a></button>
+                <?php endif; ?>
+            </div>
         </div>
     </div>
-
 </body>
 
 

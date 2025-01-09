@@ -17,7 +17,7 @@ body {
 }
 
 .container {
-  height: 80%;
+  height: auto;
   margin: 2% 8%;
   display: grid;
   padding: 2% 2%;
@@ -39,7 +39,7 @@ body {
   }
 
   .pokémon_self {
-    top: 10rem;
+    top: 5rem;
     z-index: 2;
     scale: 220%;
     filter: drop-shadow(5px 3px 0px black);
@@ -64,8 +64,6 @@ body {
     font-size: 35px;
     padding-left: 10px;
     grid-area: pokémon_info;
-    border: black solid 2px;
-    background-color: red;
 
     p {
       line-height: 40px;
@@ -89,7 +87,6 @@ body {
 
     table {
       width: 100%;
-      border: black solid 2px;
 
       tr {
 
@@ -107,98 +104,52 @@ body {
     line-height: 35px;
     grid-area: pokémon_abilities;
 
-    table {
+    .pokémon_ability_table {
       width: 100%;
       border: black solid 2px;
 
-      tr {
-        display: flex;
-        justify-content: space-between;
+      .ability {
 
-        td {
+        .ability_title {
+          text-decoration: underline;
+          font-weight: 700;
           margin: 5px 0;
         }
 
-        .pokémon_results {
-          padding: 0 3px;
-          font-weight: 700;
-          margin-right: 10px;
-          align-items: start;
+        .ability_description {
           text-decoration: underline;
+          font-weight: 700;
 
         }
       }
-
-      .noThirdAbility {
-        display: none;
-      }
-
     }
-  }
 
-  .pokémon_abilities_desc {
-    font-size: 25px;
-    line-height: 35px;
-    grid-area: pokémon_abilities_desc;
+    .button-container {
+      position: absolute;
+      justify-items: center;
 
+      .button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        background-color: #bdbdbd;
+        color: #333333;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
 
-    div {
-      width: 100%;
-      display: grid;
-      justify-content: end;
-      position: relative;
+        a {
+          text-decoration: none;
 
-      .desc-1,
-      .desc-2,
-      .desc-3 {
-        display: none;
-        flex-direction: row-reverse;
-        justify-content: space-between;
-        align-items: start;
-        position: absolute;
-        text-align: right;
-        border: 3px solid black;
-      }
-
-      .noThirdAbility {
-        display: none;
-      }
-
-    }
-  }
-
-  .button-container {
-    padding-top: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    margin-top: 20px;
-
-    .button {
-      display: inline-block;
-      margin: 0 10px;
-      padding: 10px 20px;
-      background-color: #bdbdbd;
-      color: #333333;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-
-      a {
-        text-decoration: none;
-
-        &:visited {
-          color: #333333;
+          &:visited {
+            color: #333333;
+          }
         }
-      }
 
-      &:hover {
-        background-color: #cacaca;
-      }
+        &:hover {}
 
-      &:active {
-        transform: scale(0.95);
+        &:active {
+          transform: scale(0.95);
+        }
       }
     }
   }
