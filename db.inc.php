@@ -1,9 +1,49 @@
 <?php
+error_reporting(E_ALL);
+error_reporting(-1);
+ini_set('error_reporting', E_ALL);
 
-// CONNECTIE MAKEN MET DE DB
+function requireLoggedIn()
+{
+    if (!isLoggedIn()) {
+        print "SUCCES LOGIN";
+    }
+}
+
+function requireLoggedOut()
+{
+    if (isLoggedIn()) {
+        print "SUCCES LOGOUT";
+    }
+}
+
+function isLoggedIn()
+{
+    session_start();
+
+    $loggedin = FALSE;
+
+    if (isset($_SESSION['loggedin'])) {
+        if ($_SESSION['loggedin'] > time()) {
+            $loggedin = TRUE;
+            $_SESSION['loggedin'] = time() + 3600;
+        }
+    }
+
+    return $loggedin;
+}
+
+function setLogin($uid = FALSE)
+{
+    $_SESSION['loggedin'] = time() + 3600;
+
+    if ($uid) {
+        $_SESSION['uid'] = $uid;
+    }
+}
+
 function connectToDB()
 {
-    // CONNECTIE CREDENTIALS
     $db_host = '127.0.0.1';
     $db_user = 'root';
     $db_password = 'root';
@@ -20,7 +60,64 @@ function connectToDB()
     return $db;
 }
 
-// HAAL ALLE NEWS ITEMS OP UIT DE DB
+function isValidLogin(String $mail, String $pass)
+{
+    $sql = "SELECT * FROM users WHERE email=:mail AND password=:pass";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute([
+        ':mail' => $mail,
+        ':pass' => $pass
+    ]);
+    return $stmt->fetchColumn();
+}
+
+function getUsers()
+{
+    $sql = "SELECT * FROM users";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function isMailUnique(String $email): bool
+{
+    $sql = "SELECT COUNT(*) AS total FROM users WHERE email=:email";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute([
+        ':email' => $email
+    ]);
+
+    return (bool)$stmt->fetchColumn();
+}
+
+function isUsernameUnique(String $username): bool
+{
+    $sql = "SELECT COUNT(*) AS total FROM users WHERE username=:username";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute([
+        ':username' => $username
+    ]);
+
+    return (bool)$stmt->fetchColumn();
+}
+
+function insertIntoDB(String $username, String $email, String $password)
+{
+    $db = connectToDB();
+    $sql = "INSERT INTO users(email, username, password) VALUES (:email, :username, :password)";
+    $stmt = $db->prepare($sql);
+    $stmt->execute([
+        ':email' => $email,
+        ':username' => $username,
+        ':password' => $password
+    ]);
+    return $db->lastInsertId();
+}
+
 function getPokémons(): array
 {
     $sql = "SELECT 
@@ -50,60 +147,42 @@ function getTypeImage($type)
     switch ($type) {
         case 'Dark':
             return 'https://www.serebii.net/pokedex-bw/type/dark.gif';
-            break;
         case 'Electric':
             return 'https://www.serebii.net/pokedex-bw/type/electric.gif';
-            break;
         case 'Fairy':
             return 'https://www.serebii.net/pokedex-bw/type/fairy.gif';
-            break;
         case 'Fighting':
             return 'https://www.serebii.net/pokedex-bw/type/fighting.gif';
-            break;
         case 'Ground':
             return 'https://www.serebii.net/pokedex-bw/type/ground.gif';
-            break;
         case 'Ice':
             return 'https://www.serebii.net/pokedex-bw/type/ice.gif';
-            break;
         case 'Normal':
             return 'https://www.serebii.net/pokedex-bw/type/normal.gif';
-            break;
         case 'Poison':
             return 'https://www.serebii.net/pokedex-bw/type/poison.gif';
-            break;
         case 'Psychic':
             return 'https://www.serebii.net/pokedex-bw/type/psychic.gif';
-            break;
         case 'Rock':
             return 'https://www.serebii.net/pokedex-bw/type/rock.gif';
-            break;
         case 'Steel':
             return 'https://www.serebii.net/pokedex-bw/type/steel.gif';
-            break;
         case 'Water':
             return 'https://www.serebii.net/pokedex-bw/type/water.gif';
-            break;
         case 'Grass':
             return 'https://www.serebii.net/pokedex-bw/type/grass.gif';
-            break;
         case 'Fire':
             return 'https://www.serebii.net/pokedex-bw/type/fire.gif';
-            break;
         case 'Bug':
             return 'https://www.serebii.net/pokedex-bw/type/bug.gif';
-            break;
         case 'Dragon':
             return 'https://www.serebii.net/pokedex-bw/type/dragon.gif';
-            break;
         case 'Flying':
             return 'https://www.serebii.net/pokedex-bw/type/flying.gif';
-            break;
         case 'Ghost':
             return 'https://www.serebii.net/pokedex-bw/type/ghost.gif';
-            break;
         default:
-            return ''; // No image for 'default' or unknown types
+            return '';
     }
 }
 
@@ -164,7 +243,6 @@ function setBackgroundColor($type)
         case 'Ghost':
             echo "style='background-color:#181C14;border:solid#FEF9F2'";
             break;
-
         default:
             echo "style='background-color:white;border:solid#fffff'";
             break;
@@ -228,7 +306,6 @@ function setColor($type)
         case 'Ghost':
             echo "style='color:#FEF9F2'";
             break;
-
         default:
             echo "style='color:black'";
             break;
@@ -298,8 +375,6 @@ function setBackgroundImg($type)
     }
 }
 
-
-// HAAL HET NWS ITEM UIT SPECIFIEKE ID
 function getPokémonById(int $id): array|bool
 {
     $sql = "SELECT pokémon.* FROM pokémon
@@ -312,7 +387,6 @@ function getPokémonById(int $id): array|bool
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-// HAAL ALLE DETAILS UIT SPECIFIEKE ID
 function getDetailsPokémonById(int $id): array|bool
 {
     $sql = "

@@ -1,17 +1,209 @@
 @import url("./reset.css");
 @import url("./icons.css");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Inter:opsz,wght@14..32,100..900&family=Oswald:wght@200..700&family=Roboto:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=Inter:opsz,wght@14..32,100..900&family=Oswald:wght@200..700&family=Roboto:wght@400;700&display=swap");
 
 * {
     box-sizing: border-box;
-    font-family: "Hanken Grotesk";
+}
+
+header {
+    padding: 2rem 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .name {
+
+        a {
+            text-decoration: none;
+            color: red;
+            font-weight: 900;
+            font-size: 3rem;
+
+            h1 {
+                margin: 0;
+            }
+
+            &:hover {
+                transition: all 250ms;
+                color: black;
+            }
+        }
+    }
+
+    .search {
+        flex-grow: 1;
+        text-align: center;
+        padding: 0;
+
+        input {
+            width: 50%;
+            max-width: 600px;
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid black;
+            border-radius: 5px;
+
+            &:hover {
+                border: 1px solid red;
+
+                &::placeholder {
+                    color: red;
+                }
+            }
+        }
+    }
+
+    nav {
+
+        .menu {
+            list-style: none;
+            display: flex;
+            gap: 3rem;
+
+            li {
+                a {
+                    text-decoration: none;
+                    color: black;
+                    background-color: white;
+                    border: 3px solid black;
+                    padding: .5rem 1.5rem;
+                    border-radius: 15px;
+
+                    &:hover {
+                        transition: all 250ms;
+                        color: red;
+                        background-color: white;
+                        border: 3px solid red;
+
+                    }
+                }
+
+                /* 
+                .login {
+                    &::after {
+                        content: "Login";
+                    }
+                }
+
+                .loginSucces {
+                    &::after {
+                        content: "Logout";
+                    }
+                } */
+            }
+        }
+    }
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px;
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+
+            &:hover,
+            &:focus {
+                color: black;
+                text-decoration: none;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
+#register-form {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 300px;
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+
+            &:hover,
+            &:focus {
+                color: black;
+                text-decoration: none;
+            }
+        }
+
+        h2 {
+            margin-bottom: 15px;
+        }
+
+        .form-field {
+            margin-bottom: 15px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #45a049;
+            }
+        }
+    }
 }
 
 body {
+    font-family: "Hanken Grotesk";
     min-width: 100%;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 8rem;
+    padding-right: 8rem;
     background-image: url("https://static.vecteezy.com/system/resources/previews/024/649/105/large_2x/pattern-pokeball-red-and-white-ball-of-the-popular-cartoon-90s-pixel-art-free-vector.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -20,13 +212,13 @@ body {
         width: 100%;
         height: auto;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        grid-column-gap: 25px;
-        grid-row-gap: 25px;
+        grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+        grid-column-gap: 2rem;
+        grid-row-gap: 2rem;
 
         .pokémon_card {
             border-radius: 10px;
-            transition: transform 500ms ease-in, border 500ms ease-in, box-shadow 500ms ease-in;
+            transition: all 250ms ease-in;
 
             &:hover,
             &:focus {
@@ -34,59 +226,58 @@ body {
                 box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
                 cursor: pointer;
             }
-        }
 
-        .pokémon {
-            border-radius: 5px;
-            height: auto;
-            padding: 10px;
-            display: grid;
-            grid: "pokémon_image pokémon_ID_name" 10% "pokémon_image pokémon_type1" 1fr "pokémon_image pokémon_type2" 1fr / 1fr 1fr;
-            gap: 15px;
-
-            .pokémon_image {
-                grid-area: pokémon_image;
+            .pokémon {
                 border-radius: 5px;
-                height: 180px;
+                height: auto;
+                padding: 1rem;
+                display: grid;
+                grid: "pokémon_image pokémon_ID_name" 10% "pokémon_image pokémon_type1" 1fr "pokémon_image pokémon_type2" 1fr / 1fr 1fr;
+                gap: 1rem;
 
-                img {
-                    display: block;
-                    margin-left: auto;
-                    margin-right: auto;
-                    padding: 15px;
-                    height: 180px;
-                    filter: drop-shadow(5px 5px 6px black);
+                .pokémon_image {
+                    grid-area: pokémon_image;
+                    border-radius: 5px;
+                    height: 10rem;
+
+                    img {
+                        display: block;
+                        margin: 0 auto;
+                        padding: 1rem;
+                        height: 10rem;
+                        filter: drop-shadow(5px 5px 6px black);
+                    }
                 }
-            }
 
-            .pokémon_ID_name {
-                margin-top: 10%;
-                grid-area: pokémon_ID_name;
-                padding-top: 5px;
-                font-family: "Hanken Grotesk";
-                font-weight: 900;
-                font-size: 110%;
-                text-decoration: underline;
-            }
-
-            .pokémon_type1 {
-                grid-area: pokémon_type1;
-
-                .type {
-                    padding-top: 20px;
-                    scale: 200%;
-                    display: block;
-                    padding-left: 10px;
+                .pokémon_ID_name {
+                    margin-top: 10%;
+                    grid-area: pokémon_ID_name;
+                    padding-top: 1rem;
+                    font-family: "Hanken Grotesk";
+                    font-weight: 900;
+                    font-size: 1rem;
+                    text-decoration: underline;
                 }
-            }
 
-            .pokémon_type2 {
-                grid-area: pokémon_type2;
+                .pokémon_type1 {
+                    grid-area: pokémon_type1;
 
-                .type {
-                    scale: 200%;
-                    display: block;
-                    padding-left: 10px;
+                    .type {
+                        padding-top: 1.5rem;
+                        transform: scale(2);
+                        display: block;
+                        padding-left: 1rem;
+                    }
+                }
+
+                .pokémon_type2 {
+                    grid-area: pokémon_type2;
+
+                    .type {
+                        transform: scale(2);
+                        display: block;
+                        padding-left: 1rem;
+                    }
                 }
             }
         }
@@ -96,8 +287,8 @@ body {
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 18px;
-        padding: 10px 0;
+        gap: 2rem;
+        padding: 1rem 0;
 
         .page-link {
 
@@ -106,19 +297,19 @@ body {
                 text-decoration: none;
                 color: white;
                 background-color: #b3b3b3;
-                border: solid white 3px;
-                width: 100px;
-                height: 30px;
+                border: 3px solid white;
+                width: 6.25rem;
+                height: 2rem;
                 border-radius: 5px;
                 display: flex;
                 justify-content: center;
                 align-items: center;
 
                 &:hover {
-                    transition: all 500ms;
+                    transition: all 250ms ease-in;
                     color: #b3b3b3;
                     background-color: white;
-                    border: solid #b3b3b3 3px;
+                    border: 3px solid #b3b3b3;
                 }
             }
 

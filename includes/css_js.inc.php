@@ -5,7 +5,7 @@ if (isset($_SERVER["admin"])) {
     $dist = "../dist/";
 } else {
     $manifestUrl = "./dist/.vite/manifest.json";
-    $source = "js/index.js";
+    $source = "js/link_index.js";
     $dist = "./dist/";
 }
 $manifestJson = file_get_contents($manifestUrl);
