@@ -11,13 +11,33 @@ function connectToDB()
     $db_port = 8889;
 
     try {
-        $db = new PDO('mysql:host=' . $db_host . '; port=' . $db_port . '; dbname=' . $db_db, $db_user, $db_password);
+        $db = new PDO('mysql:host=' . $db_host . ';port=' . $db_port . ';dbname=' . $db_db, $db_user, $db_password);
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+        // Create the gebruikers table if it doesn't exist
+        createUsersTable($db);
+
+        return $db;
     } catch (PDOException $e) {
         echo "Error!: " . $e->getMessage() . "<br />";
         die();
     }
-    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, FALSE);
-    return $db;
+}
+
+// CREATE USERS TABLE IF NOT EXISTS
+function createUsersTable($db)
+{
+    $sql = "
+        CREATE TABLE IF NOT EXISTS gebruikers (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            username VARCHAR(255) NOT NULL UNIQUE,
+            email VARCHAR(255) NOT NULL,
+            password VARCHAR(255) NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        );
+    ";
+    $db->exec($sql);
 }
 
 // HAAL ALLE NEWS ITEMS OP UIT DE DB
@@ -50,58 +70,40 @@ function getTypeImage($type)
     switch ($type) {
         case 'Dark':
             return 'https://www.serebii.net/pokedex-bw/type/dark.gif';
-            break;
         case 'Electric':
             return 'https://www.serebii.net/pokedex-bw/type/electric.gif';
-            break;
         case 'Fairy':
             return 'https://www.serebii.net/pokedex-bw/type/fairy.gif';
-            break;
         case 'Fighting':
             return 'https://www.serebii.net/pokedex-bw/type/fighting.gif';
-            break;
         case 'Ground':
             return 'https://www.serebii.net/pokedex-bw/type/ground.gif';
-            break;
         case 'Ice':
             return 'https://www.serebii.net/pokedex-bw/type/ice.gif';
-            break;
         case 'Normal':
             return 'https://www.serebii.net/pokedex-bw/type/normal.gif';
-            break;
         case 'Poison':
             return 'https://www.serebii.net/pokedex-bw/type/poison.gif';
-            break;
         case 'Psychic':
             return 'https://www.serebii.net/pokedex-bw/type/psychic.gif';
-            break;
         case 'Rock':
             return 'https://www.serebii.net/pokedex-bw/type/rock.gif';
-            break;
         case 'Steel':
             return 'https://www.serebii.net/pokedex-bw/type/steel.gif';
-            break;
         case 'Water':
             return 'https://www.serebii.net/pokedex-bw/type/water.gif';
-            break;
         case 'Grass':
             return 'https://www.serebii.net/pokedex-bw/type/grass.gif';
-            break;
         case 'Fire':
             return 'https://www.serebii.net/pokedex-bw/type/fire.gif';
-            break;
         case 'Bug':
             return 'https://www.serebii.net/pokedex-bw/type/bug.gif';
-            break;
         case 'Dragon':
             return 'https://www.serebii.net/pokedex-bw/type/dragon.gif';
-            break;
         case 'Flying':
             return 'https://www.serebii.net/pokedex-bw/type/flying.gif';
-            break;
         case 'Ghost':
             return 'https://www.serebii.net/pokedex-bw/type/ghost.gif';
-            break;
         default:
             return ''; // No image for 'default' or unknown types
     }
@@ -164,7 +166,6 @@ function setBackgroundColor($type)
         case 'Ghost':
             echo "style='background-color:#181C14;border:solid#FEF9F2'";
             break;
-
         default:
             echo "style='background-color:white;border:solid#fffff'";
             break;
@@ -228,7 +229,6 @@ function setColor($type)
         case 'Ghost':
             echo "style='color:#FEF9F2'";
             break;
-
         default:
             echo "style='color:black'";
             break;
@@ -298,7 +298,6 @@ function setBackgroundImg($type)
     }
 }
 
-
 // HAAL HET NWS ITEM UIT SPECIFIEKE ID
 function getPokémonById(int $id): array|bool
 {
@@ -357,8 +356,6 @@ function getDetailsPokémonById(int $id): array|bool
             p.pokémon_id = :id;
     ";
     $stmt = connectToDB()->prepare($sql);
-    $stmt->execute([
-        ":id" => $id
-    ]);
+    $stmt->execute([':id' => $id]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
