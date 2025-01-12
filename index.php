@@ -4,9 +4,6 @@ require_once('users.inc.php');
 
 session_start(); // Start session to check login state
 
-print '<pre>';
-print_r($_SESSION['is_admin']);
-print '</pre>';
 
 $errors = [];
 $loginModalOpen = false;
@@ -125,13 +122,14 @@ $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage)
         </div>
         <div class="search">
             <input type="search" id="search-bar" placeholder="Search Character...">
+            <div id="search-results"></div>
         </div>
         <nav>
             <ul class="menu">
                 <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-                    <li><a href="#">Favorites</a></li>
+                    <li><a href="games.php">Pokémon Games</a></li>
                     <?php if (!empty($_SESSION['is_admin'])): ?>
-                        <li><a href="#">Admin</a></li>
+                        <li><a href="/admin/index.php">Admin</a></li>
                     <?php endif; ?>
                     <li>
                         <a class="loginSucces" id="login-link" href="?action=logout">Logout</a>
@@ -190,7 +188,6 @@ $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage)
                 <button type="submit" name="sign-up">Sign Up</button>
             </form>
 
-            <p><a href="#" id="already-have-account-link">Already have an account? Login</a></p>
         </div>
     </div>
 
@@ -238,5 +235,9 @@ $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage)
         <?php endif; ?>
     </ul>
 </body>
+
+<footer>
+    <p>&copy; 2025 PokeHub. All rights reserved.</p>
+</footer>
 
 </html>

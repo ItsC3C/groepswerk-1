@@ -339,3 +339,19 @@ function getDetailsPokémonById(int $id): array|bool
     ]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
+
+function getGames(): array
+{
+    $sql = "SELECT 
+                id, 
+                game_name, 
+                game_image, 
+                game_description, 
+                game_production_year
+            FROM 
+                pokémon_games";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}

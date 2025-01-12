@@ -18,15 +18,54 @@ $details = getDetailsPokémonById($id);
     <script type="module" src="<?= getJS("detail"); ?>"></script>
 </head>
 
+<header>
+    <div class="name">
+        <a href="index.php">
+            <h1>PokéHub</h1>
+        </a>
+    </div>
+    <div class="search">
+        <input type="search" id="search-bar" placeholder="Search Character...">
+    </div>
+</header>
+
 <body>
     <div class="container" <?php setBackgroundColor($details['primary_type']) ?>>
-        <div class="pokémon_image pokémon_self">
+        <div class="pokémon_image">
             <a href="<?= $details['pokémon_image'] ?>" data-lightbox="image-1"><img src='<?= $details['pokémon_image'] ?>' alt=''></a>
         </div>
-        <div>
-            <img class="pokémon_image pokémon_background" src="<?= setBackgroundImg($details['primary_type']) ?>" alt="landscape">
+        <div class="pokémon_background">
+            <img src="<?= setBackgroundImg($details['primary_type']) ?>" alt="landscape">
         </div>
-        <h1 class="pokémon_name" <?php setColor($details['primary_type']) ?>><?= $details['pokémon_id'] ?> | <?= $details['pokémon_name'] ?></h1>
+        <div class="first_info">
+            <h1 class="pokémon_name" <?php setColor($details['primary_type']) ?>><?= $details['pokémon_id'] ?> | <?= $details['pokémon_name'] ?></h1>
+            <table class="pokémon_stats" <?php setColor($details['primary_type']) ?>>
+                <tr>
+                    <td>HP</td>
+                    <td class="pokémon_results"><?= $details['pokémon_hp'] ?></td>
+                </tr>
+                <tr>
+                    <td>Speed</td>
+                    <td class="pokémon_results"><?= $details['pokémon_speed'] ?></td>
+                </tr>
+                <tr>
+                    <td>Attack</td>
+                    <td class="pokémon_results"><?= $details['pokémon_attack'] ?></td>
+                </tr>
+                <tr>
+                    <td>Special Attack</td>
+                    <td class="pokémon_results"><?= $details['pokémon_special_attack'] ?></td>
+                </tr>
+                <tr>
+                    <td>Defense</td>
+                    <td class="pokémon_results"><?= $details['pokémon_defence'] ?></td>
+                </tr>
+                <tr>
+                    <td>Special Defense</td>
+                    <td class="pokémon_results"><?= $details['pokémon_special_defense'] ?></td>
+                </tr>
+            </table>
+        </div>
         <div class="pokémon_info" <?php setColor($details['primary_type']) ?>>
             <p>Type: <?php
                         $primaryTypeImage = getTypeImage($details['primary_type']);
@@ -36,36 +75,7 @@ $details = getDetailsPokémonById($id);
                 echo '<img class="type type2" src="' . $primaryTypeImage . '" alt="' . $primaryTypeImage . '">';
                 ?></p>
             <p>Evolution Stage: <?= $details['evolution_stage'] ? $details['evolution_stage'] : 'None' ?></p>
-            <p>Height: <?= $details['pokémon_height'] ?> m.</p>
-            <p>Weight: <?= $details['pokémon_weight'] ?> kg.</p>
-        </div>
-        <div class="pokémon_stats" <?php setColor($details['primary_type']) ?>>
-            <table>
-                <tr>
-                    <td>HP</td>
-                    <td class="pokémon_results"><?= $details['pokémon_hp'] ?></td>
-                </tr>
-                <tr>
-                    <td>Attack</td>
-                    <td class="pokémon_results"><?= $details['pokémon_attack'] ?></td>
-                </tr>
-                <tr>
-                    <td>Defense</td>
-                    <td class="pokémon_results"><?= $details['pokémon_defence'] ?></td>
-                </tr>
-                <tr>
-                    <td>Special Attack</td>
-                    <td class="pokémon_results"><?= $details['pokémon_special_attack'] ?></td>
-                </tr>
-                <tr>
-                    <td>Special Defense</td>
-                    <td class="pokémon_results"><?= $details['pokémon_special_defense'] ?></td>
-                </tr>
-                <tr>
-                    <td>Speed</td>
-                    <td class="pokémon_results"><?= $details['pokémon_speed'] ?></td>
-                </tr>
-            </table>
+            <p>Height: <?= $details['pokémon_height'] ?> m. Weight: <?= $details['pokémon_weight'] ?> kg.</p>
         </div>
         <div class="pokémon_abilities" <?php setColor($details['primary_type']) ?>>
             <div class="pokémon_abilty_table">
@@ -84,18 +94,21 @@ $details = getDetailsPokémonById($id);
                     <div class="ability_description"><?= $details['ability_3_description'] ?>.</div>
                 </div>
             </div>
-            <div class="button-container">
-                <?php if ($details['pokémon_id'] > 1): ?>
-                    <button class="button"><a href="detail.php?id=<?= $details['pokémon_id'] - 1 ?>">Previous</a></button>
-                <?php endif; ?>
-                <?php if ($details['pokémon_id'] < 151): ?>
-                    <button class="button"><a href="detail.php?id=<?= $details['pokémon_id'] + 1 ?>">Next</a></button>
-                <?php endif; ?>
-            </div>
         </div>
+        <div class="button-container">
+            <?php if ($details['pokémon_id'] > 1): ?>
+                <button class="button"><a href="detail.php?id=<?= $details['pokémon_id'] - 1 ?>">Previous</a></button>
+            <?php endif; ?>
+            <?php if ($details['pokémon_id'] < 151): ?>
+                <button class="button"><a href="detail.php?id=<?= $details['pokémon_id'] + 1 ?>">Next</a></button>
+            <?php endif; ?>
+        </div>
+    </div>
     </div>
 </body>
 
-
+<footer>
+    <p>&copy; 2025 PokeHub. All rights reserved.</p>
+</footer>
 
 </html>

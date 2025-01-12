@@ -7,150 +7,208 @@
   box-sizing: border-box;
 }
 
+header {
+  padding: 2rem 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+
+  .name {
+    a {
+      text-decoration: none;
+      color: red;
+      font-weight: 900;
+      font-size: 3rem;
+      margin: 0;
+      transition: color 250ms;
+
+      &:hover {
+        color: black;
+      }
+    }
+  }
+
+  .search {
+    padding-top: 0.5rem;
+    flex-grow: 1;
+    text-align: center;
+
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid black;
+      border-radius: 5px;
+      transition: border-color 250ms;
+
+      &:hover {
+        border-color: red;
+
+        &::placeholder {
+          color: red;
+        }
+      }
+    }
+  }
+}
+
 body {
   font-family: "Hanken Grotesk";
   min-width: 100%;
+  padding-left: 8rem;
+  padding-right: 8rem;
   background-image: url("https://static.vecteezy.com/system/resources/previews/024/649/105/large_2x/pattern-pokeball-red-and-white-ball-of-the-popular-cartoon-90s-pixel-art-free-vector.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
-  overflow-x: hidden;
-}
 
-.container {
-  height: auto;
-  margin: 2% 8%;
-  display: grid;
-  padding: 2% 2%;
-  grid:
-    "pokémon_image pokémon_image pokémon_name pokémon_name" 20% "pokémon_image pokémon_image pokémon_info pokémon_info" 20% "pokémon_abilities pokémon_abilities pokémon_abilities pokémon_stats" 10% "pokémon_abilities_desc pokémon_abilities_desc pokémon_abilities_desc pokémon_stats" 10%/ 20% 20% 20% 40%;
-  gap: 12px;
-  position: relative;
-  aspect-ratio: 1/1;
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 50px;
+    padding: 2rem;
+    position: relative;
 
+    .pokémon_image {
+      position: absolute;
+      top: 12.5rem;
+      left: 20rem;
+      scale: 200%;
 
-  .pokémon_image {
-    grid-area: pokémon_image;
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    width: 100%;
-    position: absolute;
-  }
+      a {}
+    }
 
-  .pokémon_self {
-    top: 5rem;
-    z-index: 2;
-    scale: 220%;
-    filter: drop-shadow(5px 3px 0px black);
-  }
+    .pokémon_background {
 
-  .pokémon_background {
-    top: 0;
-    left: 0;
-    z-index: 1;
-    border: 5px solid #85A947;
-    border-radius: 5px;
-  }
-
-  .pokémon_name {
-    font-size: 80px;
-    padding-left: 10px;
-    margin: 0;
-    grid-area: pokémon_name;
-  }
-
-  .pokémon_info {
-    font-size: 35px;
-    padding-left: 10px;
-    grid-area: pokémon_info;
-
-    p {
-      line-height: 40px;
-
-      .type {
-        scale: 200%;
-        padding-left: 25px;
-        transform: translateY(-2px);
-      }
-
-      .type2 {
-        padding-left: 35px;
+      img {
+        height: 380px;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 40px;
       }
     }
-  }
 
-  .pokémon_stats {
-    font-size: 25px;
-    line-height: 35px;
-    grid-area: pokémon_stats;
+    .first_info {
+      font-size: 3.5rem;
+      padding-left: 2rem;
+      padding-top: 2rem;
+      width: 40%;
 
-    table {
-      width: 100%;
-
-      tr {
-
-        .pokémon_results {
-          text-decoration: underline;
-          font-weight: 700;
-        }
+      .pokémon_name {
+        padding-bottom: 2rem;
       }
 
+      table {
+        width: 100%;
+        border-collapse: collapse;
+
+        tr {
+          border-bottom: 1px solid #eaeaea;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          td {
+            padding: 10px 12px;
+            text-align: left;
+            font-size: 1.5rem;
+
+            &:first-child,
+            &:nth-child(3) {
+              text-decoration: underline;
+            }
+
+            &.pokémon_results {
+              text-align: right;
+              font-weight: 900;
+            }
+          }
+        }
+      }
     }
-  }
 
-  .pokémon_abilities {
-    font-size: 25px;
-    line-height: 35px;
-    grid-area: pokémon_abilities;
+    .pokémon_info {
+      line-height: 2.5rem;
+      font-size: 1.5rem;
+      padding-top: 2rem;
 
-    .pokémon_ability_table {
-      width: 100%;
-      border: black solid 2px;
+      p {
 
-      .ability {
-
-        .ability_title {
-          text-decoration: underline;
-          font-weight: 700;
-          margin: 5px 0;
+        .type {
+          scale: 200%;
+          padding-left: 2rem;
         }
 
-        .ability_description {
-          text-decoration: underline;
-          font-weight: 700;
-
+        .type1 {
+          padding-right: 1rem;
         }
+
+        .type2 {}
       }
+    }
+
+    .pokémon_abilities {
+      line-height: 2.5rem;
+      font-size: 1.5rem;
+      padding-top: 2rem;
+      padding-left: 2rem;
+      width: 60%;
     }
 
     .button-container {
       position: absolute;
-      justify-items: center;
+      top: 93%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: space-between;
+      width: 95%;
+      gap: 1rem;
+      padding: 1rem;
 
       .button {
-        margin: 0 10px;
-        padding: 10px 20px;
-        background-color: #bdbdbd;
-        color: #333333;
-        border: none;
+        background-color: #b3b3b3;
+        border: 3px solid white;
+        width: 6.25rem;
+        height: 2rem;
         border-radius: 5px;
-        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
 
-        a {
-          text-decoration: none;
+        &:hover {
+          transition: all 250ms ease-in;
+          color: #b3b3b3;
+          background-color: white;
+          border: 3px solid #b3b3b3;
 
-          &:visited {
-            color: #333333;
+          a {
+            color: red;
           }
         }
 
-        &:hover {}
-
-        &:active {
-          transform: scale(0.95);
+        a {
+          font-size: 1rem;
+          text-decoration: none;
+          color: white;
         }
       }
     }
+
+  }
+}
+
+footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0;
+  width: 100%;
+
+  p {
+    font-family: "Hanken Grotesk";
+    font-size: 1rem;
   }
 }
