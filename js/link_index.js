@@ -3,28 +3,43 @@ import "../css/style.css";
 console.log("JavaScript works.......");
 
 // Modal elements
-var loginModal = document.getElementById("login-modal");
-var registerModal = document.getElementById("register-form");
-var loginLink = document.getElementById("login-link");
-var closeLoginModal = document.getElementById("close-modal");
-var closeRegisterModal = document.getElementById("close-register-modal");
-var loginButton = document.getElementById("login-button");
-var signUpLink = document.getElementById("sign-up-link");
-var logoutButton = document.getElementById("logout-button");
-var alreadyHaveAccountLink = document.getElementById(
+const loginModal = document.getElementById("login-modal");
+const registerModal = document.getElementById("register-form");
+const loginLink = document.getElementById("login-link");
+const closeLoginModal = document.getElementById("close-modal");
+const closeRegisterModal = document.getElementById("close-register-modal");
+const loginButton = document.getElementById("login-button");
+const signUpLink = document.getElementById("sign-up-link");
+const alreadyHaveAccountLink = document.getElementById(
   "already-have-account-link"
 );
+
+// Utility to display errors near form fields
+function displayErrors(errors, form) {
+  for (const [field, message] of Object.entries(errors)) {
+    const inputElement = form.querySelector(`[name="${field}"]`);
+    if (inputElement) {
+      let errorElement = inputElement.nextElementSibling;
+
+      // Create error message if it doesn't exist
+      if (!errorElement || !errorElement.classList.contains("error-login")) {
+        errorElement = document.createElement("p");
+        errorElement.className = "error-login";
+        inputElement.insertAdjacentElement("afterend", errorElement);
+      }
+
+      // Set the error message
+      errorElement.textContent = message;
+    }
+  }
+}
 
 // Show login modal
 loginLink.addEventListener("click", function (event) {
   event.preventDefault();
-
-  // If already logged in, handle logout
   if (this.classList.contains("loginSucces")) {
-    // Use logout.php instead of the action parameter
-    window.location.href = "logout.php";
+    window.location.href = "index.php?action=logout";
   } else {
-    // Show login modal if not logged in
     loginModal.style.display = "block";
   }
 });
@@ -59,67 +74,51 @@ window.addEventListener("click", function (event) {
 loginButton.addEventListener("click", function (event) {
   event.preventDefault();
 
-  // Get form values
-  var email = document.getElementById("inputmail").value;
-  var pass = document.getElementById("inputpass").value;
+  const email = document.getElementById("inputmail").value.trim();
+  const pass = document.getElementById("inputpass").value.trim();
 
-  // Basic validation
   if (!email || !pass) {
     alert("Please fill in both email and password.");
     return;
   }
 
-  // Send AJAX request to attempt login
   fetch("index.php?action=login", {
     method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
     credentials: "same-origin",
     body: `inputmail=${encodeURIComponent(
       email
     )}&inputpass=${encodeURIComponent(pass)}`,
   })
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      return response.text();
-    })
+    .then((response) => response.json())
     .then((data) => {
-      if (data === "logged_in") {
-        // Hide login modal after successful login
+      if (data.success) {
         loginModal.style.display = "none";
-
-        // Update UI to reflect successful login
-        loginLink.classList.remove("login");
-        loginLink.classList.add("loginSucces");
-        loginLink.innerText = "Logout";
-
-        // Reload page to ensure all states are in sync
+        loginLink.classList.replace("login", "loginSucces");
+        loginLink.textContent = "Logout";
         window.location.reload();
       } else {
-        alert("Login failed. Please check your credentials.");
+        displayErrors(data.errors, loginModal.querySelector("form"));
       }
     })
     .catch((error) => {
       console.error("Login failed:", error);
-      alert("Login failed. Please try again.");
+      alert("An error occurred. Please try again.");
     });
 });
 
 // Handle registration form submission
-document
-  .getElementById("register-form")
+registerModal
+  .querySelector("form")
   .addEventListener("submit", function (event) {
     event.preventDefault();
 
-    // Get form values
-    var email = document.getElementById("inputmail-register").value;
-    var pass = document.getElementById("inputpass-register").value;
-    var passConfirm = document.getElementById("inputpass-confirm").value;
+    const email = document.getElementById("inputmail-register").value.trim();
+    const pass = document.getElementById("inputpass-register").value.trim();
+    const passConfirm = document
+      .getElementById("inputpass-confirm-register")
+      .value.trim();
 
-    // Basic validation
     if (!email || !pass || !passConfirm) {
       alert("Please fill in all fields.");
       return;
@@ -130,93 +129,32 @@ document
       return;
     }
 
-    // Send AJAX request to register
-    fetch("index.php", {
+    fetch("index.php?action=register", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
       credentials: "same-origin",
       body: `inputmail=${encodeURIComponent(
         email
-      )}&inputpass=${encodeURIComponent(pass)}&action=register`,
+      )}&inputpass=${encodeURIComponent(pass)}`,
     })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.text();
-      })
+      .then((response) => response.json())
       .then((data) => {
-        if (data === "registered") {
-          console.log("Registered successfully");
+        if (data.success) {
           registerModal.style.display = "none";
           loginModal.style.display = "block";
         } else {
-          alert("Registration failed. Please try again.");
+          displayErrors(data.errors, registerModal.querySelector("form"));
         }
       })
       .catch((error) => {
         console.error("Registration failed:", error);
-        alert("Registration failed. Please try again.");
+        alert("An error occurred. Please try again.");
       });
   });
 
-// Switch to login form when clicking "Already have an account?"
+// Switch to login form from register modal
 alreadyHaveAccountLink.addEventListener("click", function (event) {
   event.preventDefault();
   registerModal.style.display = "none";
   loginModal.style.display = "block";
-});
-
-// Handle registration form submission
-document
-  .getElementById("register-form")
-  .addEventListener("submit", function (event) {
-    event.preventDefault();
-
-    // Get form values
-    var email = document.getElementById("inputmail-register").value;
-    var pass = document.getElementById("inputpass-register").value;
-    var passConfirm = document.getElementById("inputpass-confirm").value;
-
-    // Basic validation
-    if (!email || !pass || !passConfirm) {
-      alert("Please fill in all fields.");
-      return;
-    }
-
-    if (pass !== passConfirm) {
-      alert("Passwords do not match.");
-      return;
-    }
-
-    // Send AJAX request to register
-    fetch("index.php", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: `inputmail=${encodeURIComponent(
-        email
-      )}&inputpass=${encodeURIComponent(pass)}&action=register`,
-    })
-      .then((response) => response.text())
-      .then((data) => {
-        if (data === "registered") {
-          console.log("Registered successfully");
-          registerModal.style.display = "none"; // Hide register modal
-          loginModal.style.display = "block"; // Show login modal again
-        } else {
-          alert("Registration failed. Please try again.");
-        }
-      })
-      .catch((error) => console.error("Registration failed:", error));
-  });
-
-// Switch to login form when clicking "Already have an account?" in the register modal
-alreadyHaveAccountLink.addEventListener("click", function (event) {
-  event.preventDefault();
-  registerModal.style.display = "none"; // Hide register modal
-  loginModal.style.display = "block"; // Show login modal
 });
