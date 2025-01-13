@@ -5,11 +5,6 @@ session_start();
 
 require('../db.inc.php');
 
-// Redirect to login page if not logged in
-// if (!isset($_SESSION['username'])) {
-//     header("Location: login.php");
-//     exit();
-// }
 ?>
 
 <!DOCTYPE html>
@@ -38,6 +33,7 @@ require('../db.inc.php');
     <div>
         <?php if (isset($_SESSION['username'])): ?>
             <a href="logout.php">Log Out</a>
+            <a href="update.php">Update Pokémon</a>
         <?php else: ?>
             <a href="login.php">Log In</a>
             <a href="register.php">Sign Up</a>
