@@ -4,6 +4,7 @@ require_once('users.inc.php');
 
 session_start(); // Start session to check login state
 
+
 $errors = [];
 $loginModalOpen = false;
 $registerModalOpen = false;
@@ -94,20 +95,6 @@ if (isset($_POST['sign-up'])) {
 
 $pokémons = getpokémons();
 
-if (isset($_POST['searchterm']) && !empty($_POST['searchterm'])) {
-    $id = nameToId($_POST['searchterm']);
-
-    if ($id) {
-        header("Location: detail.php?id=$id");
-        exit;
-    } else {
-        header("Location: error.php");
-        exit;
-    }
-}
-
-
-
 $page = isset($_GET['page-nr']) ? (int)$_GET['page-nr'] : 1;
 $itemsPerPage = 21;
 $totalpokémon = count($pokémons);
@@ -139,17 +126,16 @@ $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage)
                 <h1>PokéHub</h1>
             </a>
         </div>
-        <form method="POST" action="index.php">
+        <div class="form">
             <div class="search">
-                <input type="text" name="searchterm" placeholder="Search Battles" value="">
+                <input id="searchField" type="text" name="searchterm" placeholder="Search Pokémons..." value="">
             </div>
-        </form>
+        </div>
         <nav>
             <ul class="menu">
                 <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
-                    <li><a href="games.php">Pokémon Games</a></li>
-                    <?php if (!empty($_SESSION['is_admin'])): ?>
-                        <li><a href="/admin/index.php">Admin</a></li>
+                    <?php if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1): ?>
+                        <li><a href="admin/index.php">Admin</a></li>
                     <?php endif; ?>
                     <li>
                         <a class="loginSucces" id="login-link" href="?action=logout">Logout</a>
@@ -218,7 +204,7 @@ $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage)
                     <div class="pokémon_image">
                         <img src="<?= $pokémon['pokémon_image']; ?>" alt="<?= $pokémon['pokémon_name']; ?>">
                     </div>
-                    <div class="pokémon_ID_name" <?php setColor($pokémon['primary_type_name']); ?>>
+                    <div class="pokémon_ID_name pokémon_name" <?php setColor($pokémon['primary_type_name']); ?>>
                         <?= $pokémon['pokémon_id']; ?> | <?= $pokémon['pokémon_name']; ?>
                     </div>
                     <div class="pokémon_type1">

@@ -45,6 +45,49 @@ function getPokémons(): array
     return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
+function deletePokémonById(int $id): bool
+{
+    $sql = "DELETE FROM pokémon WHERE pokémon_id = :id";
+
+    try {
+        $db = connectToDB();
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        echo "Error!: " . $e->getMessage() . "<br />";
+        return false;
+    }
+}
+
+function getPokémon($id)
+{
+    $sql = "SELECT 
+                pokémon.pokémon_id,
+                pokémon.pokémon_name,
+                pokémon.*,
+                primary_type.type_name AS primary_type_name,
+                secondary_type.type_name AS secondary_type_name
+            FROM 
+                pokémon
+            LEFT JOIN 
+                pokémon_is_type ON pokémon.pokémon_id = pokémon_is_type.pokémon_id
+            LEFT JOIN 
+                types AS primary_type ON pokémon_is_type.type_id = primary_type.type_id
+            LEFT JOIN 
+                types AS secondary_type ON pokémon_is_type.type2_id = secondary_type.type_id
+            LEFT JOIN 
+                types ON pokémon.pokémon_id = types.type_id
+                WHERE
+                pokémon.pokémon_id = :id";
+
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute([
+        ":id" => $id,
+    ]);
+    return $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 function getTypeImage($type)
 {
     switch ($type) {
@@ -290,19 +333,6 @@ function getPokémonById(int $id): array|bool
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
-function nameToId($name)
-{
-    $sql = "SELECT pokémon_id FROM pokémon WHERE pokémon_name = :name;";
-
-    $stmt = connectToDB()->prepare($sql);
-    $stmt->execute([
-        ":name" => $name
-    ]);
-
-    $result = $stmt->fetch(PDO::FETCH_COLUMN);
-    return $result;
-}
-
 function getDetailsPokémonById(int $id): array|bool
 {
     $sql = "
@@ -353,6 +383,65 @@ function getDetailsPokémonById(int $id): array|bool
     return $stmt->fetch(PDO::FETCH_ASSOC);
 }
 
+function getAllTypes(): array
+{
+    $sql = "SELECT * FROM types";
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+function getItemsByBase(?string $base)
+{
+    $sql = "
+    SELECT 
+        p.pokémon_id,
+        p.pokémon_name,
+        p.pokémon_image,
+        p.pokémon_evolutiuon_stage AS evolution_stage,
+        p.pokémon_height,
+        p.pokémon_weight,
+        p.pokémon_hp,
+        p.pokémon_attack,
+        p.pokémon_defence,
+        p.pokémon_special_attack,
+        p.pokémon_special_defense,
+        p.pokémon_speed,
+        a1.abilitie_name AS ability_1,
+        a1.abilitie_description AS ability_1_description,
+        a2.abilitie_name AS ability_2,
+        a2.abilitie_description AS ability_2_description,
+        a3.abilitie_name AS ability_3,
+        a3.abilitie_description AS ability_3_description,
+        t1.type_name AS primary_type,
+        t2.type_name AS secondary_type
+    FROM 
+        pokémon p
+    LEFT JOIN 
+        pokémon_has_abilities pha ON p.pokémon_id = pha.pokémon_id
+    LEFT JOIN 
+        abilities a1 ON pha.abilitie_id = a1.abilitie_id
+    LEFT JOIN 
+        abilities a2 ON pha.abilitie2_id = a2.abilitie_id
+    LEFT JOIN 
+        abilities a3 ON pha.abilitie3_id = a3.abilitie_id
+    LEFT JOIN 
+        pokémon_is_type pit ON p.pokémon_id = pit.pokémon_id
+    LEFT JOIN 
+        types t1 ON pit.type_id = t1.type_id
+    LEFT JOIN 
+        types t2 ON pit.type2_id = t2.type_id
+    WHERE 
+        p.pokémon_evolutiuon_stage = :base
+";
+    $stmt = connectToDB()->prepare($sql);
+    $stmt->execute([
+        ":base" => $base,
+    ]);
+    return $stmt->fetchAll(PDO::FETCH_ASSOC); // Changed from fetch() to fetchAll()
+}
+
+
 function getDetailsPokémonByName(string $name): array|bool
 {
     $sql = "
@@ -401,23 +490,6 @@ function getDetailsPokémonByName(string $name): array|bool
         ":name" => $name
     ]);
     return $stmt->fetch(PDO::FETCH_ASSOC);
-}
-
-
-function getGames(): array
-{
-    $sql = "SELECT 
-                id, 
-                game_name, 
-                game_image, 
-                game_description, 
-                game_production_year
-            FROM 
-                pokémon_games";
-
-    $stmt = connectToDB()->prepare($sql);
-    $stmt->execute();
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
 }
 
 function getPokémonNames()

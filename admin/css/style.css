@@ -1,17 +1,90 @@
-/* @import url("./reset.css"); */
 @import url("./icons.css");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap");
+
 :root {
-  /* font-size: 62.5%; */
+  font-size: 16px;
+  /* Set a base font size */
   --soft-orange: hsl(35, 77%, 62%);
+  --background-color: #f8f9fa;
+  /* Light background */
+  --primary-color: #007bff;
+  /* Blue */
+  --input-border-color: #ced4da;
+  /* Light gray */
+  --button-color: #28a745;
+  /* Green */
 }
+
 * {
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
 body {
-  /* background-color: red; */
+  font-family: 'Inter', sans-serif;
+  background-image: url("https://static.vecteezy.com/system/resources/previews/024/649/105/large_2x/pattern-pokeball-red-and-white-ball-of-the-popular-cartoon-90s-pixel-art-free-vector.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #212529;
+  padding: 2rem;
 }
-body * {
-  line-height: calc(2px + 2ex + 2px);
-  /* font-size: 5rem; */
+
+h1 {
+  text-align: center;
+  color: red;
+}
+
+form {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background: white;
+  border: 1px solid var(--input-border-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+form label {
+  display: block;
+  margin-top: 1rem;
+  font-weight: bold;
+}
+
+form input[type="text"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  border: 1px solid var(--input-border-color);
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+form button {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin-top: 1.5rem;
+  background-color: var(--button-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #218838;
+}
+
+.message {
+  max-width: 600px;
+  margin: 1rem auto;
+  padding: 1rem;
+  background-color: var(--soft-orange);
+  color: white;
+  text-align: center;
+  border-radius: 4px;
 }

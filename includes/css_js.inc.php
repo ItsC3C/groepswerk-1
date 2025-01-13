@@ -17,6 +17,11 @@ function getCSS($src)
     global $manifestObj, $dist;
     return $dist . $manifestObj["js/link_$src.js"]["css"][0];
 }
+function getAdminCSS($src)
+{
+    global $manifestObj, $dist;
+    return $dist . $manifestObj["<admin>js/link_$src.js"]["css"][0];
+}
 
 function getJS($src)
 {

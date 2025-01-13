@@ -1,4 +1,4 @@
-/* Reset some default styles */
+/* General Reset and Base Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -11,13 +11,80 @@ body {
     background-color: #f9f9f9;
 }
 
-/* Styling the main divs */
+/* Container for the form */
+form {
+    max-width: 600px;
+    width: 100%;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Form headings */
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Form labels */
+form label {
+    display: block;
+    margin: 15px 0 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Form inputs */
+form input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+/* Submit button */
+form button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}
+
+/* Messages */
+.message {
+    max-width: 600px;
+    margin: 10px auto;
+    padding: 10px;
+    background-color: #ffeeba;
+    color: #856404;
+    border: 1px solid #ffeeba;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Div styling for spacing and alignment */
 div {
     margin: 10px 0;
     text-align: center;
 }
 
-/* Styling the buttons (a tags) */
+/* Styling links */
 a {
     display: inline-block;
     padding: 12px 24px;
@@ -32,15 +99,4 @@ a {
 
 a:hover {
     background-color: #0056b3;
-}
-
-/* Styling headers */
-h1 {
-    margin-bottom: 20px;
-    color: #333;
-}
-
-h4 {
-    margin-top: 10px;
-    color: #555;
 }

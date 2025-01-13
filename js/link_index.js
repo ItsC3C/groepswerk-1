@@ -71,65 +71,19 @@ window.addEventListener("click", function (event) {
 });
 
 // Handle login form submission
-loginButton.addEventListener("click", function (event) {
-  event.preventDefault();
-
-  const email = document.getElementById("inputmail").value.trim();
-  const pass = document.getElementById("inputpass").value.trim();
-
-  if (!email || !pass) {
-    alert("Please fill in both email and password.");
-    return;
-  }
-
-  fetch("index.php?action=login", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    credentials: "same-origin",
-    body: `inputmail=${encodeURIComponent(
-      email
-    )}&inputpass=${encodeURIComponent(pass)}`,
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success) {
-        loginModal.style.display = "none";
-        loginLink.classList.replace("login", "loginSucces");
-        loginLink.textContent = "Logout";
-        window.location.reload();
-      } else {
-        displayErrors(data.errors, loginModal.querySelector("form"));
-      }
-    })
-    .catch((error) => {
-      console.error("Login failed:", error);
-      alert("An error occurred. Please try again.");
-    });
-});
-
-// Handle registration form submission
-registerModal
-  .querySelector("form")
-  .addEventListener("submit", function (event) {
+if (loginButton) {
+  loginButton.addEventListener("click", function (event) {
     event.preventDefault();
 
-    const email = document.getElementById("inputmail-register").value.trim();
-    const pass = document.getElementById("inputpass-register").value.trim();
-    const passConfirm = document
-      .getElementById("inputpass-confirm-register")
-      .value.trim();
+    const email = document.getElementById("inputmail").value.trim();
+    const pass = document.getElementById("inputpass").value.trim();
 
-    if (!email || !pass || !passConfirm) {
-      alert("Please fill in all fields.");
+    if (!email || !pass) {
+      alert("Please fill in both email and password.");
       return;
     }
 
-    if (pass !== passConfirm) {
-      alert("Passwords do not match.");
-      return;
-    }
-
-    fetch("index.php?action=register", {
+    fetch("index.php?action=login", {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       credentials: "same-origin",
@@ -140,21 +94,94 @@ registerModal
       .then((response) => response.json())
       .then((data) => {
         if (data.success) {
-          registerModal.style.display = "none";
-          loginModal.style.display = "block";
+          loginModal.style.display = "none";
+          loginLink.classList.replace("login", "loginSucces");
+          loginLink.textContent = "Logout";
+          window.location.reload();
         } else {
-          displayErrors(data.errors, registerModal.querySelector("form"));
+          displayErrors(data.errors, loginModal.querySelector("form"));
         }
       })
       .catch((error) => {
-        console.error("Registration failed:", error);
+        console.error("Login failed:", error);
         alert("An error occurred. Please try again.");
       });
   });
+}
 
+// Handle registration form submission
+if (registerModal) {
+  registerModal
+    .querySelector("form")
+    .addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const email = document.getElementById("inputmail-register").value.trim();
+      const pass = document.getElementById("inputpass-register").value.trim();
+      const passConfirm = document
+        .getElementById("inputpass-confirm-register")
+        .value.trim();
+
+      if (!email || !pass || !passConfirm) {
+        alert("Please fill in all fields.");
+        return;
+      }
+
+      if (pass !== passConfirm) {
+        alert("Passwords do not match.");
+        return;
+      }
+
+      fetch("index.php?action=register", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        credentials: "same-origin",
+        body: `inputmail=${encodeURIComponent(
+          email
+        )}&inputpass=${encodeURIComponent(pass)}`,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            registerModal.style.display = "none";
+            loginModal.style.display = "block";
+          } else {
+            displayErrors(data.errors, registerModal.querySelector("form"));
+          }
+        })
+        .catch((error) => {
+          console.error("Registration failed:", error);
+          alert("An error occurred. Please try again.");
+        });
+    });
+}
 // Switch to login form from register modal
-alreadyHaveAccountLink.addEventListener("click", function (event) {
-  event.preventDefault();
-  registerModal.style.display = "none";
-  loginModal.style.display = "block";
+if (alreadyHaveAccountLink) {
+  alreadyHaveAccountLink.addEventListener("click", function (event) {
+    event.preventDefault();
+    registerModal.style.display = "none";
+    loginModal.style.display = "block";
+  });
+}
+
+document.querySelector("#searchField").addEventListener("input", function () {
+  const searchValue = this.value.toLowerCase();
+  const cards = document.querySelectorAll("a.pokémon_card");
+
+  if (searchValue === "") {
+    cards.forEach((card) => {
+      card.style.display = "block";
+    });
+  } else {
+    cards.forEach((card) => {
+      const pokemonName = card
+        .querySelector(".pokémon_name")
+        .innerText.toLowerCase();
+      if (pokemonName.indexOf(searchValue) === -1) {
+        card.style.display = "none";
+      } else {
+        card.style.display = "block";
+      }
+    });
+  }
 });

@@ -1,6 +1,20 @@
 <?php
-require('db.inc.php');
-require('includes/css_js.inc.php');
+// Ensure errors are displayed during development
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
+// Start the session
+session_start();
+
+// Redirect if the user is not logged in
+if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
+    header("Location: ../error.php
+    ");
+    exit;
+}
+$_SERVER["admin"] = true;
+include_once "../includes/css_js.inc.php";
+include_once "../db.inc.php";
 
 $id = $_GET['id'];
 // $pokéId = getPokémonById($id);
@@ -40,9 +54,8 @@ if ($id < 1 || $id > $totalPokémon) {
 <header>
     <div class="name">
         <a href="index.php">
-            <h1>PokéHub</h1>
+            <h1>PokéHub - Admin Preview</h1>
         </a>
-    </div>
     </div>
 </header>
 
@@ -108,14 +121,6 @@ if ($id < 1 || $id > $totalPokémon) {
                     <div class="ability_description"><?= $details['ability_3_description'] ?>.</div>
                 </div>
             </div>
-        </div>
-        <div class="button-container">
-            <?php if ($id > 1): ?>
-                <button class="button"><a href="detail.php?id=<?= $id - 1 ?>">Previous</a></button>
-            <?php endif; ?>
-            <?php if ($id < $totalPokémon): ?>
-                <button class="button"><a href="detail.php?id=<?= $id + 1 ?>">Next</a></button>
-            <?php endif; ?>
         </div>
     </div>
     </div>

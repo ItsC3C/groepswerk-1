@@ -68,24 +68,25 @@ body {
     flex-wrap: wrap;
     border-radius: 50px;
     padding: 2rem;
-    position: relative;
-
-    .pokémon_image {
-      position: absolute;
-      top: 12.5rem;
-      left: 20rem;
-      scale: 200%;
-
-      a {}
-    }
 
     .pokémon_background {
+      position: relative;
+      width: 100%;
+      max-width: 50%;
+      aspect-ratio: 16 / 9;
+      border-radius: 40px;
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: bottom;
 
       img {
-        height: 380px;
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        border-radius: 40px;
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: auto;
+        max-width: 100%;
+        height: auto;
       }
     }
 
@@ -135,7 +136,6 @@ body {
       padding-top: 2rem;
 
       p {
-
         .type {
           scale: 200%;
           padding-left: 2rem;
@@ -158,10 +158,8 @@ body {
     }
 
     .button-container {
-      position: absolute;
-      top: 93%;
+      top: 97%;
       left: 50%;
-      transform: translate(-50%, -50%);
       display: flex;
       justify-content: space-between;
       width: 95%;
@@ -196,7 +194,6 @@ body {
         }
       }
     }
-
   }
 }
 
@@ -210,5 +207,112 @@ footer {
   p {
     font-family: "Hanken Grotesk";
     font-size: 1rem;
+  }
+}
+
+/* Media Queries for Responsiveness */
+
+/* For screens smaller than 1000px */
+@media (max-width: 1000px) {
+  body {
+    padding-left: 4rem;
+    padding-right: 4rem;
+  }
+
+  .container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pokémon_background {
+    max-width: 80%;
+    aspect-ratio: 16 / 9;
+  }
+
+  .first_info {
+    font-size: 2.5rem;
+    width: 100%;
+    padding-left: 0;
+  }
+
+  .pokémon_info,
+  .pokémon_abilities {
+    font-size: 1.2rem;
+  }
+
+  .button-container {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* For screens smaller than 750px */
+@media (max-width: 750px) {
+  header .name a {
+    font-size: 2.5rem;
+  }
+
+  .search input {
+    font-size: 0.9rem;
+  }
+
+  .container {
+    padding: 1.5rem;
+  }
+
+  .pokémon_background {
+    max-width: 90%;
+  }
+
+  .first_info {
+    font-size: 2rem;
+  }
+
+  .pokémon_info,
+  .pokémon_abilities {
+    font-size: 1rem;
+  }
+
+  .button-container .button {
+    width: 5rem;
+    height: 1.5rem;
+  }
+}
+
+/* For screens smaller than 500px */
+@media (max-width: 500px) {
+  body {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+
+  header .name a {
+    font-size: 2rem;
+  }
+
+  .search input {
+    font-size: 0.8rem;
+  }
+
+  .container {
+    padding: 1rem;
+  }
+
+  .pokémon_background {
+    max-width: 100%;
+  }
+
+  .first_info {
+    font-size: 1.5rem;
+  }
+
+  .pokémon_info,
+  .pokémon_abilities {
+    font-size: 0.9rem;
+  }
+
+  .button-container .button {
+    width: 4.5rem;
+    height: 1.5rem;
   }
 }
