@@ -76,6 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_pokemon'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Pokémon</title>
     <link rel="stylesheet" href="css/create_styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.css">
+
 </head>
 
 <body>
