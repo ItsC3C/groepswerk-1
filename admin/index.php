@@ -33,7 +33,8 @@ require('../db.inc.php');
     <div>
         <?php if (isset($_SESSION['username'])): ?>
             <a href="logout.php">Log Out</a>
-            <a href="update.php">Update Pokémon</a>
+            <a href="update.php">Update</a>
+            <a href="create.php">Create</a>
         <?php else: ?>
             <a href="login.php">Log In</a>
             <a href="register.php">Sign Up</a>
