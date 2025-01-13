@@ -112,7 +112,7 @@ $games = getGames(); ?>
 <body>
     <header>
         <div class="name">
-            <a href="#">
+            <a href="index.php">
                 <h1>PokéHub</h1>
             </a>
         </div>

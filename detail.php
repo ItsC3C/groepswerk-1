@@ -5,6 +5,37 @@ require('includes/css_js.inc.php');
 $id = $_GET['id'];
 // $pokéId = getPokémonById($id);
 $details = getDetailsPokémonById($id);
+
+// Fetch the total number of Pokémon
+$db = "";
+$totalPokémon = getTotalPokémon($db);
+
+if ($totalPokémon === 0) {
+    // Redirect to error.php if there are no Pokémon in the database
+    header("Location: error.php");
+    exit;
+}
+
+// Get the ID from the URL
+$id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+
+// Validate the ID
+if ($id < 1 || $id > $totalPokémon) {
+    header("Location: error.php");
+    exit;
+}
+
+if (isset($_POST['searchterm']) && !empty($_POST['searchterm'])) {
+    $id = nameToId($_POST['searchterm']);
+
+    if ($id) {
+        header("Location: detail.php?id=$id");
+        exit;
+    } else {
+        header("Location: error.php");
+        exit;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,9 +55,12 @@ $details = getDetailsPokémonById($id);
             <h1>PokéHub</h1>
         </a>
     </div>
-    <div class="search">
-        <input type="search" id="search-bar" placeholder="Search Character...">
     </div>
+    <form method="POST" action="index.php">
+        <div class="search">
+            <input type="text" name="searchterm" placeholder="Search Battles" value="">
+        </div>
+    </form>
 </header>
 
 <body>
@@ -96,11 +130,11 @@ $details = getDetailsPokémonById($id);
             </div>
         </div>
         <div class="button-container">
-            <?php if ($details['pokémon_id'] > 1): ?>
-                <button class="button"><a href="detail.php?id=<?= $details['pokémon_id'] - 1 ?>">Previous</a></button>
+            <?php if ($id > 1): ?>
+                <button class="button"><a href="detail.php?id=<?= $id - 1 ?>">Previous</a></button>
             <?php endif; ?>
-            <?php if ($details['pokémon_id'] < 151): ?>
-                <button class="button"><a href="detail.php?id=<?= $details['pokémon_id'] + 1 ?>">Next</a></button>
+            <?php if ($id < $totalPokémon): ?>
+                <button class="button"><a href="detail.php?id=<?= $id + 1 ?>">Next</a></button>
             <?php endif; ?>
         </div>
     </div>

@@ -4,7 +4,6 @@ require_once('users.inc.php');
 
 session_start(); // Start session to check login state
 
-
 $errors = [];
 $loginModalOpen = false;
 $registerModalOpen = false;
@@ -94,10 +93,30 @@ if (isset($_POST['sign-up'])) {
 }
 
 $pokémons = getpokémons();
+
+if (isset($_POST['searchterm']) && !empty($_POST['searchterm'])) {
+    $id = nameToId($_POST['searchterm']);
+
+    if ($id) {
+        header("Location: detail.php?id=$id");
+        exit;
+    } else {
+        header("Location: error.php");
+        exit;
+    }
+}
+
+
+
 $page = isset($_GET['page-nr']) ? (int)$_GET['page-nr'] : 1;
 $itemsPerPage = 21;
 $totalpokémon = count($pokémons);
 $pages = ceil($totalpokémon / $itemsPerPage);
+if ($page < 1 || $page > $pages) {
+    header("Location: error.php");
+    exit;
+}
+
 $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage);
 ?>
 
@@ -120,10 +139,11 @@ $pokémons = array_slice($pokémons, ($page - 1) * $itemsPerPage, $itemsPerPage)
                 <h1>PokéHub</h1>
             </a>
         </div>
-        <div class="search">
-            <input type="search" id="search-bar" placeholder="Search Character...">
-            <div id="search-results"></div>
-        </div>
+        <form method="POST" action="index.php">
+            <div class="search">
+                <input type="text" name="searchterm" placeholder="Search Battles" value="">
+            </div>
+        </form>
         <nav>
             <ul class="menu">
                 <?php if (isset($_SESSION['logged_in']) && $_SESSION['logged_in']): ?>
