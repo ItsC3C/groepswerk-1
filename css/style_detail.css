@@ -64,6 +64,7 @@ body {
   background-attachment: fixed;
 
   .container {
+    max-width: 1400px;
     display: flex;
     flex-wrap: wrap;
     border-radius: 50px;
