@@ -29,12 +29,12 @@
     "src": "fonts/icomoon.svg"
   },
   "js/link_detail.js": {
-    "file": "assets/link_detail-CgQLbExw.js",
+    "file": "assets/link_detail-BfBj6edU.js",
     "name": "link_detail",
     "src": "js/link_detail.js",
     "isEntry": true,
     "css": [
-      "assets/link_detail-Ajeu0m-r.css"
+      "assets/link_detail-B856qwSK.css"
     ],
     "assets": [
       "assets/icomoon-BeRJgAey.svg"
